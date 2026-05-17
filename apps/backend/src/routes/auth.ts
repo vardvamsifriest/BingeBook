@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import { UserModel } from "@repo/db"
 
 const router: Router = express.Router()
-const JWT_SECRET = "vvk045"
+const JWT_SECRET = process.env.JWT_SECRET!
 
 router.post("/signup", async (req, res) => {
   const { email, password, username } = req.body

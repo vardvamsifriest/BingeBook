@@ -1,4 +1,4 @@
-import {getMovie , getTrending , searchMedia} from "../tmdb.routes"
+import {getMovie , getTrending , searchMedia} from "../tmdb"
 import express,{Router} from "express"
 const router:Router = express.Router()
 router.get("/trending", async(req,res)=>{

@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/tmdb.ts","./src/routes/auth.ts","./src/routes/tmdb.ts"],"version":"6.0.3"}
+{"root":["./src/index.ts","./src/middleware.ts","./src/tmdb.ts","./src/routes/activity.ts","./src/routes/auth.ts","./src/routes/tmdb.ts","./src/types/express.d.ts"],"version":"6.0.3"}

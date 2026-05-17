@@ -1,6 +1,5 @@
 const BASE_URL = "https://api.themoviedb.org/3"
 const TOKEN = process.env.TMDB_ACCESS_TOKEN
-console.log("TOKEN:", process.env.TMDB_ACCESS_TOKEN)
 const headers = {
     Authorization : `Bearer ${TOKEN}`,
     "Content-Type": "application/json"

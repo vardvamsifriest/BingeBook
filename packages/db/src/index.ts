@@ -11,16 +11,14 @@ const User = new Schema({
     createdAt:Date
 })
 const Activity = new Schema({
-    _id:ObjectId,
-    UserId:ObjectId,
-    tmbdId:Number,
+    UserId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    tmdbId:Number,
     mediaType:{type:String,enum:["movie","tv"]},
     status:{type:String,enum:["watched","watchlist","matching","dropped"]},
     rating:Number,
     review:String,
     createdAt:Date,
     updatedAt:Date
-
 })
 export const UserModel = mongoose.model("users",User);
 export const ActivityModel = mongoose.model("Activity",Activity)
