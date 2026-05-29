@@ -14,4 +14,4 @@ mongoose.connect("mongodb+srv://vardhanvamsi587_db_user:VA44**msi@cluster0.yrkho
 app.use("/tmdb", tmdbRouter)
 app.use("/auth", authRouter)
 app.use("/activity",activityRouter)
-app.listen(3000, () => console.log("Server running on port 3000"))
+app.listen(3001, () => console.log("Server running on port 3000"))

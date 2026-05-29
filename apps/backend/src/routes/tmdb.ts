@@ -1,4 +1,4 @@
-import {getMovie , getTrending , searchMedia} from "../tmdb"
+import {getMovie , getTrending , searchMedia , getSimilar} from "../tmdb"
 import express,{Router} from "express"
 const router:Router = express.Router()
 router.get("/trending", async(req,res)=>{
@@ -14,6 +14,10 @@ router.get("/search",async(req,res)=>{
     if(!query) 
     return res.status(400).json({message:"Query required"})
     const data = await searchMedia(query)
+    res.json(data)
+})
+router.get("/movie/:id/similar", async(req,res)=>{
+    const data = await getSimilar(Number(req.params.id))
     res.json(data)
 })
 export default router

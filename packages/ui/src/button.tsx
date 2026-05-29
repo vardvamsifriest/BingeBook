@@ -5,8 +5,8 @@ interface buttonprops {
   text:string
 }
 const variantStyles = {
-  "primary":"bg-accent text-background rounded font-ubuntu",
-  "secondary":"bg-surface font-ubuntu text-text-primary"
+  "primary":"bg-accent text-background rounded font-Ubuntu",
+  "secondary":"bg-surface font-Ubuntu text-accent rounded"
 }
 const sizeStyles = {
   "sm":"p-2 py-1 text-sm",
@@ -15,7 +15,7 @@ const sizeStyles = {
 }
 export function Button(props:buttonprops)
 {
-  console.log("the button will render")
+
   return (
     <div>
       <button className={`${variantStyles[props.variant]} ${sizeStyles[props.size]}`}>{props.text}</button>
