@@ -5,13 +5,13 @@ interface buttonprops {
   text:string
 }
 const variantStyles = {
-  "primary":"bg-accent text-background rounded font-Ubuntu",
-  "secondary":"bg-surface font-Ubuntu text-accent rounded"
+  "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black  ",
+  "secondary":"bg-surface font-Ubuntu text-accent rounded-lg hover:bg-accent hover:text-black w-full"
 }
 const sizeStyles = {
   "sm":"p-2 py-1 text-sm",
   "md":"p-4 py-2 text-md",
-  "lg":"p-6 py-3 text-lg"
+  "lg":"px-6 py-3 text-lg"
 }
 export function Button(props:buttonprops)
 {

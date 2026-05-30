@@ -11,4 +11,8 @@ export const tmdb = {
         return res.json()
     }
 }
-export const imageUrl = (path:string) => `${TMDB_IMAGE}${path}}`
+export const imageUrl = (path:string | null |undefined ,type:"poster"|"avatar"="poster") => {
+if(!path)
+    return type === "poster"?"/poster.png":"/placeholder.png"
+    return`${TMDB_IMAGE}${path}`
+}

@@ -12,6 +12,16 @@
     src:url(./fonts/Inter/intermain.ttf
     )
 }
+.scroll-custom::-webkit-scrollbar {
+    height: 7px;
+  }
+  .scroll-custom::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+  .scroll-custom::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 999px;
+  }
 @theme {
     --font-Inter:"Inter",sans-serif;
     --font-Ubuntu:"Ubuntu",sans-serif;
