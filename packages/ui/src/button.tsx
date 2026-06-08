@@ -2,10 +2,11 @@
 interface buttonprops {
   size:"sm"|"md"|"lg",
   variant:"primary"|"secondary",
-  text:string
+  text:string,
+  onClick?:()=>void
 }
 const variantStyles = {
-  "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black  ",
+  "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black outline-2 outline-background ",
   "secondary":"bg-surface font-Ubuntu text-accent rounded-lg hover:bg-accent hover:text-black w-full"
 }
 const sizeStyles = {
@@ -18,7 +19,7 @@ export function Button(props:buttonprops)
 
   return (
     <div>
-      <button className={`${variantStyles[props.variant]} ${sizeStyles[props.size]}`}>{props.text}</button>
+      <button onClick={props.onClick} className={`${variantStyles[props.variant]} ${sizeStyles[props.size]}`}>{props.text}</button>
     </div>
   )
 }

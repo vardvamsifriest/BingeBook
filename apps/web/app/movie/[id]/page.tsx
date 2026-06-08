@@ -1,10 +1,12 @@
 import {tmdb,imageUrl} from "@/lib/api"
 import {Button} from "@repo/ui"
+import {RatingModal} from "../../components/ratingbutton"
 export default async function MoviePage({ params }: { params: Promise<{ id: string }> })
 {
     const { id } = await params
     const movie = await tmdb.getMovie(id)
     const similar = await tmdb.getSimilar(id)
+
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
@@ -74,8 +76,8 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
                 Tell us how did you like this?
               </p>
               </div>
-              <div className="px-30 pt-5">
-                <Button size="md" variant="primary" text="Rate" />
+              <div className="fixed inset-0 flex justify-center items-center">
+                  <RatingModal />
               </div>
             </div>
         </div>
