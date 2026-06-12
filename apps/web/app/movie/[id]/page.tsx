@@ -1,12 +1,14 @@
 import {tmdb,imageUrl} from "@/lib/api"
+import Link from "next/link"
 import {Button} from "@repo/ui"
 import {RatingModal} from "../../components/ratingbutton"
+import {SearchBar} from "../../components/searchbar"
 export default async function MoviePage({ params }: { params: Promise<{ id: string }> })
 {
     const { id } = await params
     const movie = await tmdb.getMovie(id)
     const similar = await tmdb.getSimilar(id)
-
+   
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
@@ -47,7 +49,7 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
             <h2 className="font-Ubuntu text-text-primary text-2xl mt-4">Crew</h2>
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {movie.credits?.crew?.slice(0, 10).map((crew: any) => (
-                <div key={crew.id} className="flex flex-col items-center shrink-0 w-24">
+                <div key={`${crew.id}-${crew.job}`} className="flex flex-col items-center shrink-0 w-24">
                   <img src={imageUrl(crew.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{crew.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{crew.job}</p>
@@ -56,10 +58,13 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
             </div>
           </div>
             <div className="col-span-1">
-              <p className="font-Ubuntu text-2xl text-text-primary px-20">
+              <div>
+                <SearchBar />
+              </div>
+              <p className="font-Ubuntu text-2xl text-text-primary px-20 pt-10">
                 Your Library
               </p>
-              <div className="pt-15 px-4">
+              <div className="pt-10 px-4">
               <Button size="lg" variant="secondary" text="Watchlist" />
               </div>
               <div className="pt-8 px-4">
@@ -76,7 +81,7 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
                 Tell us how did you like this?
               </p>
               </div>
-              <div className="fixed inset-0 flex justify-center items-center">
+              <div className="flex justify-center items-center">
                   <RatingModal />
               </div>
             </div>
@@ -86,10 +91,12 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
           <p className="font-Ubuntu text-text-primary text-2xl mb-4">Similar Movies</p>
           <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
             {similar.results?.slice(0, 10).map((m: any) => (
+              <Link key={m.id} href={`/movie/${m.id}`}>
               <div key={m.id} className="shrink-0 w-36">
                 <img src={imageUrl(m.poster_path,"poster")} className="w-full rounded-lg" />
                 <p className="font-Ubuntu text-text-primary text-s mt-2">{m.title}</p>
               </div>
+              </Link>
             ))}
           </div>
         </div>
