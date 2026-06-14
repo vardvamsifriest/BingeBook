@@ -24,7 +24,7 @@ router.get("/tv/:id",async(req,res)=>{
     const data = await getTv(Number(req.params.id));
     res.json(data)
 })
-router.get("tv/:id/similar",async(req,res)=>{
+router.get("/tv/:id/similar",async(req,res)=>{
     const data = await getTVSimilar(Number(req.params.id));
     res.json(data)
 })

@@ -11,6 +11,14 @@ export const tmdb = {
     const res = await fetch(`${BASE_URL}/tmdb/movie/${id}/similar`);
     return res.json();
   },
+  getTv:async (id: string)=> {
+    const res = await fetch(`${BASE_URL}/tmdb/tv/${id}`)
+    return res.json();
+  },
+  getTVSimilar:async (id:string)=> {
+    const res = await fetch(`${BASE_URL}/tmdb/tv/${id}/similar`)
+    return res.json();
+  }
 };
 
 export async function searchMedia(query: string) {
