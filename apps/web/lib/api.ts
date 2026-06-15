@@ -40,3 +40,46 @@ export const imageUrl = (
 
   return `${TMDB_IMAGE}${path}`;
 };
+export async function addActivity(data:{
+  tmdbId: number;
+  mediaType:"movie"|"tv";
+  status:string;
+}) 
+{
+  console.log("Sending",data)
+  const res = await fetch(`${BASE_URL}/activity`,{
+    method:"POST",
+    headers:{
+      "Content-type":"application/json",
+    },
+    body:JSON.stringify(data),
+  })
+  return res.json()
+}
+export async function GetWatchlist()
+{
+  const res = await fetch(`${BASE_URL}/activity/watchlist`);
+  return res.json();
+}
+export async function GetWatched()
+{
+  const res = await fetch(`${BASE_URL}/activity/watched`);
+  return res.json();
+}
+export async function GetWatching()
+{
+  const res = await fetch(`${BASE_URL}/activity/watching`)
+  return res.json();
+}
+export async function GetDropped()
+{
+  const res = await fetch(`${BASE_URL}/activity/dropped`)
+  return res.json();
+}
+export async function removeActivity(id: string) {
+  const res = await fetch(`${BASE_URL}/activity/${id}`, {
+    method: "DELETE",
+  });
+
+  return res.json();
+}

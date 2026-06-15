@@ -3,7 +3,7 @@ import express from "express"
 import mongoose from "mongoose"
 import tmdbRouter from "./routes/tmdb"
 import authRouter from "./routes/auth"
-import activityRouter from "./routes/activity"
+import activityRouter from "./activity/activity"
 import cors from "cors";
 const app = express()
 app.use(express.json())

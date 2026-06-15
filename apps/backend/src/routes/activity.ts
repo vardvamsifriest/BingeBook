@@ -2,12 +2,22 @@ import express , {Router} from "express"
 import {ActivityModel} from "@repo/db" 
 import {authMiddleware} from "../middleware"
 const router:Router = express.Router()
-
 router.post("/",authMiddleware ,async(req,res)=>{
     const {UserId , tmdbId , mediaType ,status,rating , review} = req.body
+    const existing = await ActivityModel.findOne({
+        tmdbId,
+        mediaType,
+        status
+    })
+    if(existing)
+    {
+        return res.json({
+            message:"Already exists"
+        })
+    }
     try{
         const activity = await ActivityModel.create({
-            UserId , tmdbId , mediaType ,status,rating , review
+            tmdbId , mediaType ,status,rating , review
         })
         res.json({message:"Activity logged",activity})
     }
@@ -38,6 +48,7 @@ router.put("/:id",authMiddleware,async(req,res)=>{
    }
 })
 router.delete("/:id",authMiddleware,async(req,res)=>{
+  
     try{ 
         await ActivityModel.findByIdAndDelete(req.params.id)
         res.json({message:"Activity deleted"})
@@ -47,4 +58,5 @@ router.delete("/:id",authMiddleware,async(req,res)=>{
     res.status(500).json({message:"Something went wrong"})
    }
 })
+
 export default router

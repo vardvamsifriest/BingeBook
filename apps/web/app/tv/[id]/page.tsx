@@ -1,5 +1,6 @@
 import {tmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
+import {ActivityButton} from "../../components/activitybutton"
 import {Button} from "@repo/ui"
 import {RatingModal} from "../../components/ratingbutton"
 import {SearchBar} from "../../components/searchbar"
@@ -70,16 +71,16 @@ export default async function TvPage({ params }: { params: Promise<{ id: string 
                 Your Library
               </p>
               <div className="pt-10 px-4">
-              <Button size="lg" variant="secondary" text="Watchlist" />
+              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watchlist" status="watchlist" />
               </div>
               <div className="pt-8 px-4">
-              <Button size="lg" variant="secondary" text="Continue Watching" />
+              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Continue Watching" status="watching" />
               </div>
               <div className="pt-8 px-4">
-              <Button size="lg" variant="secondary" text="Watched" />
+              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watched" status="watched" />
               </div>
               <div className="pt-8 px-4">
-              <Button size="lg" variant="secondary" text="Dropped" />
+              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Dropped" status="dropped" />
               </div>
               <div className="pt-20 px-4">
               <p className="font-Ubuntu text-2xl text-text-primary">
