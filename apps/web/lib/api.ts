@@ -18,6 +18,14 @@ export const tmdb = {
   getTVSimilar:async (id:string)=> {
     const res = await fetch(`${BASE_URL}/tmdb/tv/${id}/similar`)
     return res.json();
+  },
+  getTrendingMovies:async()=> {
+    const res = await fetch(`${BASE_URL}/tmdb/trending/movie`)
+    return res.json()
+  },
+  getTrendingTV:async() => {
+    const res = await fetch(`${BASE_URL}/tmdb/trending/tv`)
+    return res.json()
   }
 };
 
@@ -82,4 +90,4 @@ export async function removeActivity(id: string) {
   });
 
   return res.json();
-}
+} 

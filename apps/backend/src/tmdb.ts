@@ -10,10 +10,33 @@ export async function getMovie(id:number){
     return res.json();
 
 }
-export async function getTrending()
-{
-    const res = await fetch(`${BASE_URL}/trending/movie/week`,{headers})
-    return res.json();
+export async function getTrendingMovies() {
+    const res = await fetch(
+        `${BASE_URL}/trending/movie/day`,
+        {
+            headers: {
+                Authorization: `Bearer ${TOKEN}`
+            }
+        }
+    )
+
+    const data = await res.json()
+
+    return data.results
+}
+export async function getTrendingTV() {
+    const res = await fetch(
+        `${BASE_URL}/trending/tv/day`,
+        {
+            headers: {
+                Authorization: `Bearer ${TOKEN}`
+            }
+        }
+    )
+
+    const data = await res.json()
+
+    return data.results
 }
 export async function searchMedia(query:string)
 {

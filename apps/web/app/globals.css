@@ -26,8 +26,10 @@
     --font-Inter:"Inter",sans-serif;
     --font-Ubuntu:"Ubuntu",sans-serif;
     --color-background: #7A8A4E;
+    --color-mid: #98A66B;
     --color-surface: #8A9A5B;
     --color-accent: #F2EDD7;
     --color-text-primary: #F5F0E8;
+    --color-text-secondary: #B9B29A;
     --color-text-muted: #C8C4A0;
   }

@@ -1,8 +1,12 @@
-import {getMovie , getTrending , searchMedia , getSimilar,getTv,getTVSimilar} from "../tmdb"
+import {getMovie , getTrendingMovies,getTrendingTV , searchMedia , getSimilar,getTv,getTVSimilar} from "../tmdb"
 import express,{Router} from "express"
 const router:Router = express.Router()
-router.get("/trending", async(req,res)=>{
-    const data = await getTrending()
+router.get("/trending/movie", async(req,res)=>{
+    const data = await getTrendingMovies()
+    res.json(data)
+})
+router.get("/trending/tv",async(req,res)=>{
+    const data = await getTrendingTV()
     res.json(data)
 })
 router.get("/movie/:id",async(req,res)=>{

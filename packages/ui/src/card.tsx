@@ -29,8 +29,8 @@ export function Card(props:cardprops)
       <div className="p-2 pl-6">
       <InputBox  placeholder="username" id="Username:" />
       </div>
-      <div className="pl-25 pt-10">
-      <Button variant= "secondary" size = "md" text="Start" />
+      <div className=" pt-10 flex justify-center">
+      <Button variant= "primary" size = "md" text="Start" />
       </div>
     </div>
   )
