@@ -14,7 +14,7 @@ export default async function Landing() {
   return (
     <div className="bg-background min-h-screen">
      
-      <div className="bg-accent h-24 px-8 flex items-center justify-between">
+      <div className="bg-accent h-30 px-8 flex items-center justify-between">
         <div className="pt-16 pr-4">
            <Logo />
         </div>

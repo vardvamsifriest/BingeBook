@@ -1,15 +1,44 @@
+import {ReactElement} from "react"
 interface inputprops {
     placeholder:string,
-    id:string
+    id:string,
+    icon:ReactElement,
+    eyeIcon?:ReactElement
+    type?:string
 }
 export function InputBox(props:inputprops)
 {
     return (
-        <div>
-            <div>
-            <label htmlFor = {props.id} className="font-geist text-primary text-md">{props.id}</label>
-            </div>
-            <input type="text" placeholder={props.placeholder} className="bg-accent outline-2 outline-gray-900 rounded-md text-md" />
-        </div>
+        <div
+        className="
+          flex
+          items-center
+          gap-3
+          bg-[#F5F1E8]
+          rounded-xl
+          px-4
+          py-3
+          border
+          border-[#A4B07A]
+          focus-within:ring-2
+          focus-within:ring-[#A4B07A]
+        "
+      >
+        {props.icon}
+      
+        <input
+          id={props.id}
+          type={props.type ?? "text"}
+          placeholder={props.placeholder}
+          className="
+            flex-1
+            bg-transparent
+            outline-none
+            text-[#5E6A3C]
+            placeholder:text-background
+          "
+        />
+        {props.eyeIcon}
+      </div>
     )
 }

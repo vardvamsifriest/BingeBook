@@ -1,7 +1,7 @@
 "use client"
 import { Logo } from "../components/logo"
 import { Card } from "@repo/ui"
-import { Button } from "@repo/ui"
+
 
 export default function Signup() {
   return (
@@ -16,7 +16,7 @@ export default function Signup() {
       <div className="backdrop-blur-sm">
         <div className="flex justify-center items-center pt-35 ">
           <div>
-            <Card size="lg" text="Signup" needusername/>
+            <Card size="md" text="Signin" />
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ interface buttonprops {
   onClick?:()=>void
 }
 const variantStyles = {
-  "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black outline-2 outline-background ",
+  "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black outline-2 outline-background hover:scale-105 transition-all",
   "secondary":"bg-surface font-Ubuntu text-accent rounded-lg hover:bg-accent hover:text-black w-full"
 }
 const sizeStyles = {
