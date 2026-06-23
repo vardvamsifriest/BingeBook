@@ -91,3 +91,36 @@ export async function removeActivity(id: string) {
 
   return res.json();
 } 
+export async function signup(data: {
+  password: string;
+  email:string;
+  username:string;
+})
+{
+  const res = await fetch(`${BASE_URL}/auth/signup`,{
+    method:"POST",
+    headers : {
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify(data),
+
+  })
+  return res.json()
+}
+
+export async function signin(data: {
+  password: string;
+  email:string;
+  
+})
+{
+  const res = await fetch(`${BASE_URL}/auth/signin`,{
+    method:"POST",
+    headers : {
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify(data),
+
+  })
+  return res.json()
+}

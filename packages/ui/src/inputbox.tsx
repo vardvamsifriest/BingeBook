@@ -3,11 +3,14 @@ interface inputprops {
     placeholder:string,
     id:string,
     icon:ReactElement,
-    eyeIcon?:ReactElement
-    type?:string
+    eyeIcon?:ReactElement,
+    type?:string,
+    value?:string,
+    onChange?:(e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export function InputBox(props:inputprops)
 {
+ 
     return (
         <div
         className="
@@ -30,6 +33,7 @@ export function InputBox(props:inputprops)
           id={props.id}
           type={props.type ?? "text"}
           placeholder={props.placeholder}
+          onChange = {props.onChange}
           className="
             flex-1
             bg-transparent

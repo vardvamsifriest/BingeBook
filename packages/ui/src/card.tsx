@@ -8,9 +8,19 @@ import {InputBox} from "./inputbox"
 import {useState} from "react"
 
 interface cardprops {
-  size:"sm"|"md"|"lg",
-  text:string,
-  needusername?:boolean
+  size: "sm" | "md" | "lg";
+  text: string;
+  needusername?: boolean;
+  onClick: () => void;
+
+  username?: string;
+  setUsername?: (value: string) => void;
+
+  email: string;
+  setEmail: (value: string) => void;
+
+  password: string;
+  setPassword: (value: string) => void;
 }
 const SizeStyles = {
   "sm":"h-74",
@@ -28,16 +38,17 @@ export function Card(props:cardprops)
         </p>
       </div>
       <div className="pl-4 pr-4 pt-10">
-      <InputBox placeholder="email" id="Email:" icon={<Mail/>} />
+      <InputBox placeholder="email" id="Email:" icon={<Mail/>} onChange={(e)=>props.setEmail(e.target.value)} />
       </div>
       <div className="pl-4 pr-4 pt-5">
-      <InputBox  placeholder="password" id="Password:" icon={<LockIcon/>} eyeIcon={<EyeIcon onClick={()=>setShowPassword(!showPassword)}/>} type={showPassword ? "text":"password"} />
+      <InputBox  placeholder="password" id="Password:" icon={<LockIcon/>} eyeIcon={<EyeIcon onClick={()=>setShowPassword(!showPassword)}/>} type={showPassword ? "text":"password"}
+        onChange={(e)=>props.setPassword(e.target.value)}/>
       </div>
       {props.needusername && ( <div className="pl-4 pr-4  pt-5">
-      <InputBox  placeholder="username" id="Username:" icon={<UserIcon/>} />
+      <InputBox  placeholder="username" id="Username:" icon={<UserIcon/>} onChange={(e)=>props.setUsername?.(e.target.value)} />
       </div>)}
       <div className=" pt-10 flex justify-center">
-      <Button variant= "primary" size = "md" text="Start" />
+      <Button variant= "primary" size = "md" text="Start" onClick={props.onClick}/>
       </div>
     </div>
   )
