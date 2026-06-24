@@ -21,7 +21,7 @@ router.post("/signin", async (req, res) => {
   const response = await UserModel.findOne({ email, password })
   if (response) {
     const token = jwt.sign({ id: response._id.toString() }, JWT_SECRET)
-    res.json({ token, message: "You are signed in" })
+    res.json({ token, message: "You are signed in." })
   } else {
     res.status(403).json({ message: "Incorrect credentials" })
   }

@@ -19,7 +19,7 @@ export default function Signup() {
     if(data.token)
     {
       localStorage.setItem("token", data.token);
-      router.push("/dashboard")
+      router.push("/watched")
     }
     
   }

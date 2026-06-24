@@ -2,6 +2,7 @@ import { GetWatching, tmdb, imageUrl } from "@/lib/api";
 import { Button } from "@repo/ui";
 import Link from "next/link";
 import { DeleteButton } from "../components/deletebutton";
+import {SearchBar} from "../components/searchbar"
 
 export default async function Watching() {
   const watchlist = await GetWatching();
@@ -22,10 +23,13 @@ export default async function Watching() {
 
   return (
     <div className="bg-background min-h-screen p-8">
-      <div className="flex justify-center">
+      <div className="flex justify-center relative">
         <p className="font-Ubuntu text-4xl text-text-primary">
            Continue Watching
         </p>
+        <div className="absolute right-0 -top-1/2 pt-5">
+          <SearchBar/>
+        </div>
       </div>
 
       <div className="flex justify-center gap-8 pt-10">

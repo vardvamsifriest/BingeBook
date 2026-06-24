@@ -19,7 +19,7 @@ export function SearchBar()
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search movies, shows, people..."
-          className="w-full p-3 rounded-lg bg-accent"
+          className="w-75 p-3 rounded-lg bg-accent"
         />
 
         <div className="px-4 py-2 rounded-lg bg-accent text-white">
