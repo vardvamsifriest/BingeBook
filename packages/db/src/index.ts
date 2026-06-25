@@ -17,10 +17,11 @@ const Activity = new Schema({
     status:{type:String,enum:["watched","watchlist","watching","dropped"]},
     rating:Number,
     review:String,
-    createdAt:Date,
-    updatedAt:Date,
     title:String,
     posterPath:String
+},
+{
+    timestamps:true
 })
 export const UserModel = mongoose.model("users",User);
 export const ActivityModel = mongoose.model("Activity",Activity)

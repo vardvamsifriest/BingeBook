@@ -1,7 +1,9 @@
 import { GetWatched, tmdb, imageUrl } from "@/lib/api";
 import { Button } from "@repo/ui";
 import {SearchBar} from "../components/searchbar" 
+import {ReviewCard} from "../components/reviewcard"
 import Link from "next/link";
+import {HoverCard} from "../components/hovercard"
 import { DeleteButton } from "../components/deletebutton";
 
 export default async function Watching() {
@@ -68,6 +70,13 @@ export default async function Watching() {
             </div>
           </Link>
         ))}
+      
+        <div className="gap-20">
+        <HoverCard id = {"155"}/>
+        <div className="pt-20">
+        <ReviewCard />
+        </div>
+        </div>
       </div>
     </div>
   );
