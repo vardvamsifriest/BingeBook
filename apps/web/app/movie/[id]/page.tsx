@@ -2,14 +2,13 @@ import {tmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
 import {Button} from "@repo/ui"
 import {ActivityButton} from "../../components/activitybutton"
-import {RatingModal} from "../../components/ratingbutton"
 import {SearchBar} from "../../components/searchbar"
+import {MovieActions} from "../../components/movieaction"
 export default async function MoviePage({ params }: { params: Promise<{ id: string }> })
 {
     const { id } = await params
     const movie = await tmdb.getMovie(id)
     const similar = await tmdb.getSimilar(id)
-   
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
@@ -82,8 +81,8 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
                 Tell us how did you like this?
               </p>
               </div>
-              <div className="flex justify-center items-center">
-                  <RatingModal />
+              <div className="flex justify-center items-center pt-8">
+              <MovieActions tmdbId={movie.id} mediaType="movie"/>
               </div>
             </div>
         </div>

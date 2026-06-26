@@ -1,9 +1,11 @@
 "use client"
+import {ReactElement} from "react"
 interface buttonprops {
   size:"sm"|"md"|"lg",
   variant:"primary"|"secondary",
   text:string,
-  onClick?:()=>void
+  onClick?:()=>void,
+  starticon?:ReactElement
 }
 const variantStyles = {
   "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black outline-2 outline-background hover:scale-105 transition-all",
@@ -18,8 +20,9 @@ export function Button(props:buttonprops)
 {
 
   return (
-    <div>
-      <button onClick={props.onClick} className={`${variantStyles[props.variant]} ${sizeStyles[props.size]}`}>{props.text}</button>
-    </div>
+    <button onClick={props.onClick} className={`flex items-center justify-center gap-2 ${variantStyles[props.variant]} ${sizeStyles[props.size]}`}>
+    <div className="scale-80">{props.starticon}</div>
+   <div>{props.text}</div>
+  </button>
   )
 }

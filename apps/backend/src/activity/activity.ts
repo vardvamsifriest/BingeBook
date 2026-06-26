@@ -31,7 +31,17 @@ router.post("/", async (req, res) => {
     });
   }
 });
-
+router.get("/" ,async(req,res)=>{
+  try{
+      const activities = await ActivityModel.find()
+      res.json(activities)
+  }
+  catch(e)
+  {
+      res.status(500).json({message:"Something went wrong"})
+  }
+ 
+})
 router.get("/watchlist", async (req, res) => {
   try {
     const data = await ActivityModel.find({
@@ -87,7 +97,38 @@ router.get("/dropped", async (req, res) => {
     });
   }
 });
-
+router.put("/review", async (req, res) => {
+  const { tmdbId, mediaType, rating, review } = req.body;
+  console.log(req.body)
+  const activity = await ActivityModel.findOneAndUpdate(
+    {
+      tmdbId,
+      mediaType,
+    },
+    {
+      rating,
+      review,
+      updatedAt: new Date(),
+    },
+    {
+      new: true,
+      upsert: true,
+    }
+  );
+  console.log(activity)
+  res.json(activity);
+});
+router.put("/:id",async(req,res)=>{
+  try{
+      const updated = await ActivityModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
+      res.json({message:"Activity update",activity:updated})
+  }
+ catch(e)
+ {
+  res.status(500).json({message:"Something went wrong"})
+ }
+})
+console.log("FIRST ROUTER LOADED");
 router.delete("/:id", async (req, res) => {
   try {
     await ActivityModel.findByIdAndDelete(req.params.id);
@@ -101,5 +142,4 @@ router.delete("/:id", async (req, res) => {
     });
   }
 });
-
 export default router;

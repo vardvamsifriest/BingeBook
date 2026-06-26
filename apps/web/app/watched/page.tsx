@@ -74,7 +74,7 @@ export default async function Watching() {
         <div className="gap-20">
         <HoverCard id = {"155"}/>
         <div className="pt-20">
-        <ReviewCard />
+  
         </div>
         </div>
       </div>

@@ -54,7 +54,6 @@ export async function addActivity(data:{
   status:string;
 }) 
 {
-  console.log("Sending",data)
   const res = await fetch(`${BASE_URL}/activity`,{
     method:"POST",
     headers:{
@@ -123,4 +122,23 @@ export async function signin(data: {
 
   })
   return res.json()
+}
+export async function saveReview(data: {
+  tmdbId: number;
+  mediaType: "movie" | "tv";
+  rating: number;
+  review: string;
+}) {
+  const res = await fetch(
+    `${BASE_URL}/activity/review`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return res.json();
 }

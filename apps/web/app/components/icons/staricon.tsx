@@ -1,8 +1,8 @@
 interface StarProps {
-  onClick: () => void;
+  onClick?: () => void;
   onMouseEnter?: () => void;
-  onMouseLeave: () => void;
-  onMouseMove: (e: React.MouseEvent<SVGSVGElement>) => void;
+  onMouseLeave?: () => void;
+  onMouseMove?: (e: React.MouseEvent<SVGSVGElement>) => void;
   fillstate:"empty" |"half"| "filled"
 }
 export function StarIcon(props:StarProps)

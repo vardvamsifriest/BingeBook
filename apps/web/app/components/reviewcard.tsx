@@ -1,8 +1,17 @@
 "use client"
+interface ReviewCardProps {
+    tmdbId: number;
+    mediaType: "movie" | "tv";
+    onClick:()=> void,
+    onClose:()=>void
+  }
+
 import {useState} from "react"
 import {StarIcon} from "../components/icons/staricon"
 import {Button} from "@repo/ui"
-export function ReviewCard()
+import {saveReview,tmdb} from "@/lib/api"
+import {CrossIcon} from "../components/icons/crossicon"
+export function ReviewCard(props:ReviewCardProps)
 
 {
     const[rating,setRating] = useState(0)
@@ -11,10 +20,15 @@ export function ReviewCard()
 
     return (
         <div className="bg-accent h-140 w-90 rounded-lg">
-            <div className="p-2  flex justify-center">
-                <p className="font-Ubuntu text-background text-2xl pt-4">
-                    Rating
-                </p>
+            
+            <div className="flex items-center justify-between p-2">
+            <div className="w-6"></div>
+    
+            <p className="font-Ubuntu text-background text-2xl">
+                Rating
+            </p>
+
+            <CrossIcon onClick={props.onClick}/>
             </div>
             <div className="flex p-4 justify-center gap-2">
              {[1,2,3,4,5].map((star) => (
@@ -67,7 +81,18 @@ export function ReviewCard()
                 </p>
             </div>
             <div className="flex justify-center pt-5">
-                <Button size = "md" variant="primary" text="Save review" />
+                <Button size = "md" variant="primary" text="Save review"  onClick={async()=>{
+                  
+                   await saveReview({
+                    tmdbId:props.tmdbId,
+                    mediaType:props.mediaType,
+                    rating,
+                    review,
+                  });
+                 
+                  {props.onClose()}
+                }}
+                />
             </div>
             
         </div>

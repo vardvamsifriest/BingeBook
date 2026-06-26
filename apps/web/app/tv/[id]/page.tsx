@@ -1,15 +1,20 @@
+  
 import {tmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
 import {ActivityButton} from "../../components/activitybutton"
 import {Button} from "@repo/ui"
-import {RatingModal} from "../../components/ratingbutton"
 import {SearchBar} from "../../components/searchbar"
-export default async function TvPage({ params }: { params: Promise<{ id: string }> })
+import {StarIcon} from "../../components/icons/staricon"
+import {MovieActions} from "../../components/movieaction"
+
+export  default async function TvPage({ params }: { params: Promise<{ id: string }> })
 {
+  
     const { id } = await params
     const tv = await tmdb.getTv(id)
     const similar = await tmdb.getTVSimilar(id)
-   
+  
+    
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
@@ -87,8 +92,8 @@ export default async function TvPage({ params }: { params: Promise<{ id: string 
                 Tell us how did you like this?
               </p>
               </div>
-              <div className="flex justify-center items-center">
-                  <RatingModal />
+              <div className="flex justify-center items-center pt-8">
+              <MovieActions tmdbId={tv.id} mediaType="tv"/>
               </div>
             </div>
         </div>
@@ -109,4 +114,4 @@ export default async function TvPage({ params }: { params: Promise<{ id: string 
 
       </div> 
     )
-}
+  }

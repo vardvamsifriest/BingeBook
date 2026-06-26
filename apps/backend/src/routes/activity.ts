@@ -2,6 +2,8 @@ import express , {Router} from "express"
 import {ActivityModel} from "@repo/db" 
 import {authMiddleware} from "../middleware"
 const router:Router = express.Router()
+console.log("SECOND ROUTER LOADED")
+
 router.post("/",authMiddleware ,async(req,res)=>{
     const {UserId , tmdbId , mediaType ,status,rating , review} = req.body
     const existing = await ActivityModel.findOne({
