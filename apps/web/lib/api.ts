@@ -90,6 +90,16 @@ export async function removeActivity(id: string) {
 
   return res.json();
 } 
+export async function GetActivity(
+  id: string,
+  mediaType: "movie" | "tv"
+) {
+  const res = await fetch(
+    `${BASE_URL}/activity/${mediaType}/${id}`
+  );
+
+  return res.json();
+}
 export async function signup(data: {
   password: string;
   email:string;

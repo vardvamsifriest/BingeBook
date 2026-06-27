@@ -104,6 +104,7 @@ router.put("/review", async (req, res) => {
     {
       tmdbId,
       mediaType,
+      status:"watched"
     },
     {
       rating,
@@ -117,6 +118,28 @@ router.put("/review", async (req, res) => {
   );
   console.log(activity)
   res.json(activity);
+});
+router.get("/:mediaType/:id", async (req, res) => {
+  try {
+    const  mediaType  = req.params.mediaType as "movie" | "tv";
+    const tmdbId = Number(req.params.id);
+    const activity = await ActivityModel.findOne({
+      tmdbId,
+      mediaType,
+    });
+
+    if (!activity) {
+      return res.status(404).json({
+        message: "Activity not found",
+      });
+    }
+
+    res.json(activity);
+  } catch (e) {
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
 });
 router.put("/:id",async(req,res)=>{
   try{

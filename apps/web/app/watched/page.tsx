@@ -71,11 +71,14 @@ export default async function Watching() {
           </Link>
         ))}
       
-        <div className="gap-20">
-        <HoverCard id = {"155"}/>
-        <div className="pt-20">
-  
+        <div className="flex gap-20">
+        <HoverCard id = {"5920"} mediaType = {"tv"}/>
         </div>
+        <div className="gap-10">
+      
+        <div className="pt-20">
+        </div>
+        
         </div>
       </div>
     </div>
