@@ -165,4 +165,23 @@ router.delete("/:id", async (req, res) => {
     });
   }
 });
+router.put("/status",async(req,res)=> {
+  try{
+    const { id , mediaType , status} = req.body
+    const updated = await ActivityModel.findOneAndUpdate({
+      mediaId: id, mediaType },
+      { $set: { status } },
+      { new: true }
+      
+    )
+    res.json({message:"Status Updated Successfully"})
+  }
+  catch (e)
+{
+  console.log(e)
+  res.status(500).json({
+    message: "Something went wrong",
+  });
+}})
+
 export default router;

@@ -2,14 +2,15 @@
 import {ReactElement} from "react"
 interface buttonprops {
   size:"sm"|"md"|"lg",
-  variant:"primary"|"secondary",
+  variant:"primary"|"secondary"|"tertiary",
   text:string,
   onClick?:()=>void,
   starticon?:ReactElement
 }
 const variantStyles = {
   "primary":"bg-accent text-background rounded font-Ubuntu hover:text-black outline-2 outline-background hover:scale-105 transition-all",
-  "secondary":"bg-surface font-Ubuntu text-accent rounded-lg hover:bg-accent hover:text-black w-full"
+  "secondary":"bg-surface font-Ubuntu text-accent rounded-lg hover:bg-accent hover:text-black w-full",
+  "tertiary": "bg-gray-800/70 text-gray-100 border border-gray-600 rounded-lg font-Ubuntu w-full hover:bg-gray-700 transition-all"
 }
 const sizeStyles = {
   "sm":"p-2 py-1 text-sm",

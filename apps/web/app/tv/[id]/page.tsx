@@ -1,4 +1,3 @@
-  
 import {tmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
 import {ActivityButton} from "../../components/activitybutton"
@@ -76,7 +75,7 @@ export  default async function TvPage({ params }: { params: Promise<{ id: string
                 Your Library
               </p>
               <div className="pt-10 px-4">
-              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watchlist" status="watchlist" />
+              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watchlist" status="watchlist"  />
               </div>
               <div className="pt-8 px-4">
               <ActivityButton tmdbId={tv.id} mediaType="tv" text="Continue Watching" status="watching" />

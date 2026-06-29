@@ -1,23 +1,17 @@
 "use client";
 import { removeActivity } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import {Button} from "@repo/ui"
 
 export function DeleteButton({ id }: { id: string }) {
   const router = useRouter();
 
-  async function handleDelete(e: React.MouseEvent) {
-    e.preventDefault(); 
+  async function handleDelete() {
     await removeActivity(id);
-
     router.refresh();
   }
 
   return (
-    <button
-      onClick={handleDelete}
-      className="absolute top-2 right-2 bg-black/70 rounded-full w-7 h-7 text-white"
-    >
-      ✕
-    </button>
+    <Button size="md" variant="secondary" text="Remove from Library" onClick={handleDelete} />
   );
 }

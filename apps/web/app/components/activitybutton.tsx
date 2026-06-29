@@ -5,27 +5,29 @@ interface activityprops {
     tmdbId:number,
     mediaType:"movie"|"tv"
     status:"watchlist"|"watching"|"watched"|"dropped",
-    text:string
+    text:string,
+    onClick?:()=>void,
+    variant?: "primary"|"secondary"|"tertiary"
 }
 export function ActivityButton(props:activityprops)
 {
-    async function handleclick() {
-        const data = await addActivity({
-          tmdbId: props.tmdbId,
-          status: props.status,
-          mediaType: props.mediaType,
-        });
-      
-        if (data.message?.startsWith("Already")) {
-          alert(data.message);
-          return;
-        }
-      
-        alert(data.message);
-      }
+  async function handleClick() {
+    if (props.onClick) {
+      props.onClick();
+      return;
+    }
+  
+    const data = await addActivity({
+      tmdbId: props.tmdbId,
+      mediaType: props.mediaType,
+      status: props.status,
+    });
+  
+    alert(data.message);
+  }
     return (
         <div>
-            <Button size="lg" variant="secondary" text={props.text} onClick={handleclick} />
+            <Button size="md" variant={props.variant ?? "secondary"} text={props.text} onClick={handleClick}  />
         </div>
     )
 }

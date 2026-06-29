@@ -100,6 +100,23 @@ export async function GetActivity(
 
   return res.json();
 }
+export async function updateStatus(
+  id: number,
+  mediaType: "movie" | "tv",
+  status: "watched" | "watching" | "watchlist" | "dropped"
+) {
+  await fetch(`${BASE_URL}/activity/status`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      tmdbId: Number(id),
+      mediaType,
+      status,
+    }),
+  });
+}
 export async function signup(data: {
   password: string;
   email:string;
