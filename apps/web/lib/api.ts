@@ -26,6 +26,15 @@ export const tmdb = {
   getTrendingTV:async() => {
     const res = await fetch(`${BASE_URL}/tmdb/trending/tv`)
     return res.json()
+  },
+  getPerson: async (id: string) => {
+    const res = await fetch(`${BASE_URL}/tmdb/person/${id}`);
+    return res.json();
+  },
+  
+  getPersonCredits: async (id: string) => {
+    const res = await fetch(`${BASE_URL}/tmdb/person/${id}/credits`);
+    return res.json();
   }
 };
 
@@ -169,3 +178,5 @@ export async function saveReview(data: {
 
   return res.json();
 }
+
+

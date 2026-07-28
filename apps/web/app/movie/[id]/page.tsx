@@ -1,6 +1,5 @@
 import {tmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
-import {Button} from "@repo/ui"
 import {ActivityButton} from "../../components/activitybutton"
 import {SearchBar} from "../../components/searchbar"
 import {MovieActions} from "../../components/movieaction"
@@ -40,7 +39,9 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {movie.credits?.cast?.slice(0, 10).map((actor: any) => (
                 <div key={actor.id} className="flex flex-col items-center shrink-0 w-24">
+                  <Link href = {`/tmdb/person/${actor.id}`}>
                   <img src={imageUrl(actor.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
+                  </Link>
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{actor.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{actor.character}</p>
                 </div>
@@ -50,7 +51,9 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {movie.credits?.crew?.slice(0, 10).map((crew: any) => (
                 <div key={`${crew.id}-${crew.job}`} className="flex flex-col items-center shrink-0 w-24">
+                  <Link href = {`/tmdb/person/${crew.id}`}>
                   <img src={imageUrl(crew.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
+                  </Link>
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{crew.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{crew.job}</p>
                 </div>
