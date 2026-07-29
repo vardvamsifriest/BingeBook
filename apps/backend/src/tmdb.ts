@@ -58,13 +58,18 @@ export async function getTVSimilar(id:number)
     const res = await fetch(`${BASE_URL}/tv/${id}/similar`,{headers})
     return res.json();
 }
-export async function getPerson(id:number)
-{
-    const res = await fetch(`${BASE_URL}/tmdb/person/${id}`)
-    return res.json()
-}
-export async function getPersonCredits(id:number)
-{
-    const res = await fetch(`${BASE_URL}/tmdb/person/${id}/credits`)
-    return res.json()
-}
+export async function getPerson(id: number) {
+    const res = await fetch(
+      `${BASE_URL}/person/${id}`,
+      { headers }
+    );
+    return res.json();
+  }
+  
+  export async function getPersonCredits(id: number) {
+    const res = await fetch(
+      `${BASE_URL}/person/${id}/combined_credits`,
+      { headers }
+    );
+    return res.json();
+  }

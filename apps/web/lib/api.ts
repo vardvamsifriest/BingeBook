@@ -27,11 +27,19 @@ export const tmdb = {
     const res = await fetch(`${BASE_URL}/tmdb/trending/tv`)
     return res.json()
   },
-  getPerson: async (id: string) => {
-    const res = await fetch(`${BASE_URL}/tmdb/person/${id}`);
-    return res.json();
-  },
-  
+getPerson: async (id: string) => {
+  const url = `${BASE_URL}/tmdb/person/${id}`; // Verify if /tmdb/ is needed or not
+  const res = await fetch(url, {
+  });
+
+  if (!res.ok) {
+    const errorBody = await res.text();
+    console.error(`Fetch failed (${res.status}):`, errorBody);
+    throw new Error(`Failed to fetch person data (Status ${res.status})`);
+  }
+
+  return res.json();
+},
   getPersonCredits: async (id: string) => {
     const res = await fetch(`${BASE_URL}/tmdb/person/${id}/credits`);
     return res.json();

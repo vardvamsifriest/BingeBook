@@ -6,6 +6,7 @@
     "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "node",
+    
     "paths": {
       "@/*":["./*"],
       "@repo/ui": ["../../packages/ui/src/index.ts"],
@@ -19,5 +20,6 @@
     "next.config.mjs",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ignoreDeprecations": "6.0"
 }

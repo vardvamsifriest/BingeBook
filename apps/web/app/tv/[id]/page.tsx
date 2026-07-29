@@ -49,21 +49,25 @@ export  default async function TvPage({ params }: { params: Promise<{ id: string
             <h2 className="font-Ubuntu text-text-primary text-2xl mt-4">Cast</h2>
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {tv.credits?.cast?.slice(0, 10).map((actor: any) => (
+                <Link key={`${actor.id}-${actor.job}`} href = {`/person/${actor.id}`} className="block cursor-pointer">
                 <div key={actor.id} className="flex flex-col items-center shrink-0 w-24">
                   <img src={imageUrl(actor.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{actor.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{actor.character}</p>
                 </div>
+                </Link>
               ))}
             </div>
             <h2 className="font-Ubuntu text-text-primary text-2xl mt-4">Crew</h2>
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {tv.credits?.crew?.slice(0, 10).map((crew: any) => (
-                <div key={`${crew.id}-${crew.job}`} className="flex flex-col items-center shrink-0 w-24">
+                <Link key={`${crew.id}-${crew.job}`} href = {`/person/${crew.id}`} className="block cursor-pointer">
+                <div className="flex flex-col items-center shrink-0 w-24">
                   <img src={imageUrl(crew.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{crew.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{crew.job}</p>
                 </div>
+                </Link>
               ))}
             </div>
           </div>

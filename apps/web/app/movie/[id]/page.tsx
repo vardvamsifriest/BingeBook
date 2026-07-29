@@ -38,25 +38,28 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
             <h2 className="font-Ubuntu text-text-primary text-2xl mt-4">Cast</h2>
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {movie.credits?.cast?.slice(0, 10).map((actor: any) => (
-                <div key={actor.id} className="flex flex-col items-center shrink-0 w-24">
-                  <Link href = {`/tmdb/person/${actor.id}`}>
+                 <Link key={actor.id} href = {`/person/${actor.id}`} className="block cursor-pointer">
+                <div className="flex flex-col items-center shrink-0 w-24">
                   <img src={imageUrl(actor.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
-                  </Link>
+                 
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{actor.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{actor.character}</p>
                 </div>
+                </Link>
               ))}
             </div>
             <h2 className="font-Ubuntu text-text-primary text-2xl mt-4">Crew</h2>
             <div className="flex gap-4 overflow-x-auto scroll-custom pb-4">
               {movie.credits?.crew?.slice(0, 10).map((crew: any) => (
-                <div key={`${crew.id}-${crew.job}`} className="flex flex-col items-center shrink-0 w-24">
-                  <Link href = {`/tmdb/person/${crew.id}`}>
+                  <Link key={`${crew.id}-${crew.job}`} href = {`/person/${crew.id}`} className="block cursor-pointer">
+                <div  className="flex flex-col items-center shrink-0 w-24">
+               
                   <img src={imageUrl(crew.profile_path,"avatar")} className="w-20 h-20 rounded-full object-cover" />
-                  </Link>
+                  
                   <p className="font-Ubuntu text-text-primary text-s text-center mt-2">{crew.name}</p>
                   <p className="font-Ubuntu text-text-muted text-xs text-center">{crew.job}</p>
                 </div>
+                </Link>
               ))}
             </div>
           </div>
