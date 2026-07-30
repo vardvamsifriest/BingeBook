@@ -1,36 +1,62 @@
+"use client"
 import { GetWatchlist, tmdb, imageUrl } from "@/lib/api";
 import { Button } from "@repo/ui";
 import {SearchBar} from "../components/searchbar" 
 import Link from "next/link";
 import {HoverCard} from "../components/hovercard"
+import {UserIcon} from "../components/icons/usericon"
+import {useState , useEffect } from "react"
+import {Loading} from "../components/loading"
 
+export default function Watching() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default async function Watching() {
-  const watchlist = await GetWatchlist();
+  useEffect(() => {
+    async function load() {
+      const watchlist = await GetWatchlist();
 
-  const items = await Promise.all(
-    watchlist.map(async (item: any) => {
-      const details =
-        item.mediaType === "movie"
-          ? await tmdb.getMovie(item.tmdbId.toString())
-          : await tmdb.getTv(item.tmdbId.toString());
+      if (!Array.isArray(watchlist)) {
+        console.log(watchlist);
+        setLoading(false);
+        return;
+      }
 
-      return {
-        ...details,
-        activityId: item._id,
-      };
-    })
-  );
+      const data = await Promise.all(
+        watchlist.map(async (item: any) => {
+          const details =
+            item.mediaType === "movie"
+              ? await tmdb.getMovie(item.tmdbId.toString())
+              : await tmdb.getTv(item.tmdbId.toString());
 
+          return {
+            ...details,
+            activityId: item._id,
+          };
+        })
+      );
+
+      setItems(data);
+      setLoading(false);
+    }
+
+    load();
+  }, []);
+    if(loading)
+    {
+      <Loading />
+    }
   return (
     <div className="bg-background min-h-screen p-8">
       <div className="flex justify-center relative">
         <p className="font-Ubuntu text-4xl text-text-primary">
           Watchlist
         </p>
-        <div className="absolute right-0 -top-1/2 pt-5">
-          <SearchBar/>
-        </div>
+        <Link href={`/profile`}>
+        <div className="absolute right-0">
+            <UserIcon variant="primary" />
+          </div>
+        </Link>
       </div>
 
       <div className="flex justify-center gap-8 pt-10">
@@ -45,6 +71,10 @@ export default async function Watching() {
         <Link href="/dropped">
           <Button variant="secondary" text="Dropped" size="lg" />
         </Link>
+
+        <div className="absolute right-6">
+          <SearchBar/>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-10">

@@ -82,23 +82,46 @@ export async function addActivity(data:{
 }
 export async function GetWatchlist()
 {
-  const res = await fetch(`${BASE_URL}/activity/watchlist`);
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${BASE_URL}/activity/watchlist`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return res.json();
 }
+
 export async function GetWatched()
 {
-  const res = await fetch(`${BASE_URL}/activity/watched`);
-  return res.json();
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${BASE_URL}/activity/watched`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
 export async function GetWatching()
 {
-  const res = await fetch(`${BASE_URL}/activity/watching`)
-  return res.json();
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${BASE_URL}/activity/watching`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
 export async function GetDropped()
 {
-  const res = await fetch(`${BASE_URL}/activity/dropped`)
-  return res.json();
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${BASE_URL}/activity/dropped`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
 export async function removeActivity(id: string) {
   const res = await fetch(`${BASE_URL}/activity/${id}`, {
@@ -186,5 +209,14 @@ export async function saveReview(data: {
 
   return res.json();
 }
+export async function getProfile() {
+  const token = localStorage.getItem("token");
 
+  const res = await fetch(`${BASE_URL}/auth/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
+  return res.json();
+}

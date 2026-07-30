@@ -5,6 +5,7 @@ import {Button} from "@repo/ui"
 import {SearchBar} from "../../components/searchbar"
 import {StarIcon} from "../../components/icons/staricon"
 import {MovieActions} from "../../components/movieaction"
+import {UserIcon} from "../../components/icons/usericon"
 
 export  default async function TvPage({ params }: { params: Promise<{ id: string }> })
 {
@@ -17,6 +18,13 @@ export  default async function TvPage({ params }: { params: Promise<{ id: string
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
+        <div>
+          <Link href={`/profile`}>
+          <div className="flex justify-end -translate-y-15 -translate-x-10">
+            <UserIcon variant="secondary" />
+          </div>
+          </Link>
+        </div>
         <div className="grid grid-cols-4 gap-8 p-8 mt-8">
           <div className="col-span-1">
             <img src={imageUrl(tv.poster_path,"poster")} className="w-full rounded-lg" />

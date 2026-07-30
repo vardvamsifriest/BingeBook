@@ -6,7 +6,6 @@
     "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "node",
-    
     "paths": {
       "@/*":["./*"],
       "@repo/ui": ["../../packages/ui/src/index.ts"],

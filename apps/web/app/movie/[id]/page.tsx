@@ -3,6 +3,7 @@ import Link from "next/link"
 import {ActivityButton} from "../../components/activitybutton"
 import {SearchBar} from "../../components/searchbar"
 import {MovieActions} from "../../components/movieaction"
+import {UserIcon} from "../../components/icons/usericon"
 export default async function MoviePage({ params }: { params: Promise<{ id: string }> })
 {
     const { id } = await params
@@ -11,6 +12,13 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
+        <div>
+          <Link href={`/profile`}>
+          <div className="flex justify-end -translate-y-15 -translate-x-10">
+            <UserIcon variant="secondary" />
+          </div>
+          </Link>
+        </div>
         <div className="grid grid-cols-4 gap-8 p-8 mt-8">
           <div className="col-span-1">
             <img src={imageUrl(movie.poster_path,"poster")} className="w-full rounded-lg" />

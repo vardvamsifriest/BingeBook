@@ -45,7 +45,7 @@ export function Card(props:cardprops)
         onChange={(e)=>props.setPassword(e.target.value)}/>
       </div>
       {props.needusername && ( <div className="pl-4 pr-4  pt-5">
-      <InputBox  placeholder="username" id="Username:" icon={<UserIcon/>} onChange={(e)=>props.setUsername?.(e.target.value)} />
+      <InputBox  placeholder="username" id="Username:" icon={<UserIcon variant="secondary"/>} onChange={(e)=>props.setUsername?.(e.target.value)} />
       </div>)}
       <div className=" pt-10 flex justify-center">
       <Button variant= "primary" size = "md" text="Start" onClick={props.onClick}/>
