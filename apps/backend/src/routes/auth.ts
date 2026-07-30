@@ -1,7 +1,7 @@
 import express, { Router } from "express"
 import jwt from "jsonwebtoken"
 import { UserModel } from "@repo/db"
-
+import {authMiddleware} from "../middleware"
 const router: Router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET!
 
@@ -26,5 +26,17 @@ router.post("/signin", async (req, res) => {
     res.status(403).json({ message: "Incorrect credentials" })
   }
 })
+router.get("/profile", authMiddleware, async (req, res) => {
+  const user = await UserModel.findById(req.userId).select(
+    "username email createdAt"
+  );
 
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  }
+
+  res.json(user);
+});
 export default router

@@ -8,6 +8,7 @@ router.post("/", async (req, res) => {
     const { tmdbId, mediaType, status } = req.body;
 
     const existing = await ActivityModel.findOne({
+      userId: req.userId,
       tmdbId,
       mediaType,
       status,
@@ -19,7 +20,9 @@ router.post("/", async (req, res) => {
       });
     }
 
-    const activity = await ActivityModel.create(req.body);
+    const activity = await ActivityModel.create({
+      ...req.body,
+    userId: req.userId});
 
     res.json({
       message: `Added to ${status}`,
@@ -33,7 +36,7 @@ router.post("/", async (req, res) => {
 });
 router.get("/" ,async(req,res)=>{
   try{
-      const activities = await ActivityModel.find()
+      const activities = await ActivityModel.find({userId:req.userId})
       res.json(activities)
   }
   catch(e)
@@ -45,6 +48,7 @@ router.get("/" ,async(req,res)=>{
 router.get("/watchlist", async (req, res) => {
   try {
     const data = await ActivityModel.find({
+      userId: req.userId,
       status: "watchlist",
     });
 
@@ -59,6 +63,7 @@ router.get("/watchlist", async (req, res) => {
 router.get("/watching", async (req, res) => {
   try {
     const data = await ActivityModel.find({
+      userId: req.userId,
       status: "watching",
     });
 
@@ -73,6 +78,7 @@ router.get("/watching", async (req, res) => {
 router.get("/watched", async (req, res) => {
   try {
     const data = await ActivityModel.find({
+      userId: req.userId,
       status: "watched",
     });
 
@@ -87,6 +93,7 @@ router.get("/watched", async (req, res) => {
 router.get("/dropped", async (req, res) => {
   try {
     const data = await ActivityModel.find({
+      userId: req.userId,
       status: "dropped",
     });
 
@@ -102,6 +109,7 @@ router.put("/review", async (req, res) => {
   console.log(req.body)
   const activity = await ActivityModel.findOneAndUpdate(
     {
+      userId:req.userId,
       tmdbId,
       mediaType,
       status:"watched"
@@ -124,6 +132,7 @@ router.get("/:mediaType/:id", async (req, res) => {
     const  mediaType  = req.params.mediaType as "movie" | "tv";
     const tmdbId = Number(req.params.id);
     const activity = await ActivityModel.findOne({
+      userId: req.userId,
       tmdbId,
       mediaType,
     });
@@ -168,14 +177,17 @@ router.delete("/:id", async (req, res) => {
 router.put("/status",async(req,res)=> {
   try{
     const { id , mediaType , status} = req.body
-    const updated = await ActivityModel.findOneAndUpdate({
-      mediaId: id, mediaType },
-      { $set: { status } },
-      { new: true }
-      
-    )
+    const updated = await ActivityModel.findOneAndUpdate(
+      {
+          userId: req.userId,
+          tmdbId: id,
+          mediaType,
+      },
+      {
+          status,
+      },
     res.json({message:"Status Updated Successfully"})
-  }
+  )}
   catch (e)
 {
   console.log(e)
