@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import { ActivityModel } from "@repo/db";
-
+import {authMiddleware} from "../middleware"
 const router: Router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const { tmdbId, mediaType, status } = req.body;
 
@@ -11,30 +11,31 @@ router.post("/", async (req, res) => {
       userId: req.userId,
       tmdbId,
       mediaType,
-      status,
     });
-
+    
     if (existing) {
       return res.status(409).json({
-        message: `Already in ${status}`,
+        message: `Already in ${existing.status}`,
       });
     }
-
+    
     const activity = await ActivityModel.create({
       ...req.body,
-    userId: req.userId});
-
+      userId: req.userId,
+    });
+    
     res.json({
       message: `Added to ${status}`,
       activity,
     });
   } catch (e) {
+    console.log(e);
     res.status(500).json({
       message: "Something went wrong",
     });
   }
 });
-router.get("/" ,async(req,res)=>{
+router.get("/" ,authMiddleware,async(req,res)=>{
   try{
       const activities = await ActivityModel.find({userId:req.userId})
       res.json(activities)
@@ -45,7 +46,7 @@ router.get("/" ,async(req,res)=>{
   }
  
 })
-router.get("/watchlist", async (req, res) => {
+router.get("/watchlist", authMiddleware,async (req, res) => {
   try {
     const data = await ActivityModel.find({
       userId: req.userId,
@@ -60,7 +61,7 @@ router.get("/watchlist", async (req, res) => {
   }
 });
 
-router.get("/watching", async (req, res) => {
+router.get("/watching",authMiddleware, async (req, res) => {
   try {
     const data = await ActivityModel.find({
       userId: req.userId,
@@ -75,7 +76,7 @@ router.get("/watching", async (req, res) => {
   }
 });
 
-router.get("/watched", async (req, res) => {
+router.get("/watched", authMiddleware, async (req, res) => {
   try {
     const data = await ActivityModel.find({
       userId: req.userId,
@@ -90,7 +91,7 @@ router.get("/watched", async (req, res) => {
   }
 });
 
-router.get("/dropped", async (req, res) => {
+router.get("/dropped",authMiddleware, async (req, res) => {
   try {
     const data = await ActivityModel.find({
       userId: req.userId,
@@ -104,7 +105,7 @@ router.get("/dropped", async (req, res) => {
     });
   }
 });
-router.put("/review", async (req, res) => {
+router.put("/review",authMiddleware, async (req, res) => {
   const { tmdbId, mediaType, rating, review } = req.body;
   console.log(req.body)
   const activity = await ActivityModel.findOneAndUpdate(
@@ -127,7 +128,7 @@ router.put("/review", async (req, res) => {
   console.log(activity)
   res.json(activity);
 });
-router.get("/:mediaType/:id", async (req, res) => {
+router.get("/:mediaType/:id",authMiddleware, async (req, res) => {
   try {
     const  mediaType  = req.params.mediaType as "movie" | "tv";
     const tmdbId = Number(req.params.id);
@@ -150,7 +151,43 @@ router.get("/:mediaType/:id", async (req, res) => {
     });
   }
 });
-router.put("/:id",async(req,res)=>{
+router.put("/status", authMiddleware, async (req, res) => {
+
+  console.log("STATUS ROUTE HIT");
+  console.log(req.body);
+  console.log(req.userId);
+
+  try {
+    const { id, mediaType, status } = req.body;
+
+    const updated = await ActivityModel.findOneAndUpdate(
+      {
+        userId: req.userId,
+        tmdbId: id,
+        mediaType,
+      },
+      {
+        $set: { status },
+      },
+      {
+        new: true,
+      }
+    );
+    
+    res.json({
+      message: "Status Updated Successfully",
+      activity: updated,
+    });
+   
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: e instanceof Error ? e.message : "Something went wrong",
+    });
+  }
+  
+});
+router.put("/:id",authMiddleware,async(req,res)=>{
   try{
       const updated = await ActivityModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
       res.json({message:"Activity update",activity:updated})
@@ -161,7 +198,8 @@ router.put("/:id",async(req,res)=>{
  }
 })
 console.log("FIRST ROUTER LOADED");
-router.delete("/:id", async (req, res) => {
+
+router.delete("/:id", authMiddleware ,async (req, res) => {
   try {
     await ActivityModel.findByIdAndDelete(req.params.id);
 
@@ -174,26 +212,6 @@ router.delete("/:id", async (req, res) => {
     });
   }
 });
-router.put("/status",async(req,res)=> {
-  try{
-    const { id , mediaType , status} = req.body
-    const updated = await ActivityModel.findOneAndUpdate(
-      {
-          userId: req.userId,
-          tmdbId: id,
-          mediaType,
-      },
-      {
-          status,
-      },
-    res.json({message:"Status Updated Successfully"})
-  )}
-  catch (e)
-{
-  console.log(e)
-  res.status(500).json({
-    message: "Something went wrong",
-  });
-}})
+
 
 export default router;

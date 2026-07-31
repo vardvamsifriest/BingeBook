@@ -5,18 +5,24 @@ import {useRouter} from "next/navigation"
 interface activityprops {
     tmdbId: number;
     mediaType: "movie" | "tv"
-    currentStatus?: "watched" | "watchlist" | "watching" | "dropped"
+    currentStatus?: "watched" | "watchlist" | "watching" | "dropped",
+    onStatusChange?:(status: Status) => void;
     
 }
 type Status  ="watchlist" | "watching" | "watched" | "dropped";
 export function ActivityControl(props:activityprops)
 {
     const router = useRouter()
+   
     async function handleUpdate(status: Status) {
-        console.log("clicked", status);
-        await updateStatus(props.tmdbId, props.mediaType, status);
-        router.refresh();
-      }
+      const res = await updateStatus(
+        props.tmdbId,
+        props.mediaType,
+        status
+      );
+    
+      props.onStatusChange?.(status);
+    }
     return (
         <div className="mt-4 grid grid-cols-2 gap-2">
           <ActivityButton

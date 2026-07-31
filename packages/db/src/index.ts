@@ -3,13 +3,20 @@ import mongoose from "mongoose"
 const Schema = mongoose.Schema
 const ObjectId = Schema.ObjectId
 
-const User = new Schema({
-    username:String,
-    password:String,
-    email:{type:String,unique:true},
-    avatar:String,
-    createdAt:Date
-})
+const User = new Schema(
+    {
+      username: String,
+      password: String,
+      email: {
+        type: String,
+        unique: true,
+      },
+      avatar: String,
+    },
+    {
+      timestamps: true,
+    }
+  );
 const Activity = new Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
     tmdbId:Number,

@@ -1,6 +1,6 @@
 import express, { Router } from "express"
 import jwt from "jsonwebtoken"
-import { UserModel } from "@repo/db"
+import { UserModel,ActivityModel} from "@repo/db"
 import {authMiddleware} from "../middleware"
 const router: Router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET!
@@ -28,15 +28,43 @@ router.post("/signin", async (req, res) => {
 })
 router.get("/profile", authMiddleware, async (req, res) => {
   const user = await UserModel.findById(req.userId).select(
-    "username email createdAt"
+    "-password"
   );
 
-  if (!user) {
-    return res.status(404).json({
-      message: "User not found",
-    });
-  }
+  const watched = await ActivityModel.countDocuments({
+    userId: req.userId,
+    status: "watched",
+  });
 
-  res.json(user);
+  const watching = await ActivityModel.countDocuments({
+    userId: req.userId,
+    status: "watching",
+  });
+
+  const watchlist = await ActivityModel.countDocuments({
+    userId: req.userId,
+    status: "watchlist",
+  });
+
+  const dropped = await ActivityModel.countDocuments({
+    userId: req.userId,
+    status: "dropped",
+  });
+
+  const reviews = await ActivityModel.countDocuments({
+    userId: req.userId,
+    review: { $exists: true, $ne: "" },
+  });
+
+  res.json({
+    user,
+    stats: {
+      watched,
+      watching,
+      watchlist,
+      dropped,
+      reviews,
+    },
+  });
 });
 export default router

@@ -1,6 +1,14 @@
 const BASE_URL = "http://localhost:3001";
 const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
 
+function authHeaders() {
+  const token = localStorage.getItem("token");
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+}
 export const tmdb = {
   getMovie: async (id: string) => {
     const res = await fetch(`${BASE_URL}/tmdb/movie/${id}`);
@@ -73,9 +81,7 @@ export async function addActivity(data:{
 {
   const res = await fetch(`${BASE_URL}/activity`,{
     method:"POST",
-    headers:{
-      "Content-type":"application/json",
-    },
+    headers:authHeaders(),
     body:JSON.stringify(data),
   })
   return res.json()
@@ -85,9 +91,7 @@ export async function GetWatchlist()
   const token = localStorage.getItem("token");
 
   const res = await fetch(`${BASE_URL}/activity/watchlist`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: authHeaders(),
   });
 
   return res.json();
@@ -98,9 +102,7 @@ export async function GetWatched()
   const token = localStorage.getItem("token");
 
   const res = await fetch(`${BASE_URL}/activity/watched`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: authHeaders(),
   });
 }
 export async function GetWatching()
@@ -108,9 +110,7 @@ export async function GetWatching()
   const token = localStorage.getItem("token");
 
   const res = await fetch(`${BASE_URL}/activity/watching`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: authHeaders(),
   });
 }
 export async function GetDropped()
@@ -118,14 +118,13 @@ export async function GetDropped()
   const token = localStorage.getItem("token");
 
   const res = await fetch(`${BASE_URL}/activity/dropped`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: authHeaders(),
   });
 }
 export async function removeActivity(id: string) {
   const res = await fetch(`${BASE_URL}/activity/${id}`, {
     method: "DELETE",
+    headers: authHeaders(),
   });
 
   return res.json();
@@ -135,27 +134,31 @@ export async function GetActivity(
   mediaType: "movie" | "tv"
 ) {
   const res = await fetch(
-    `${BASE_URL}/activity/${mediaType}/${id}`
-  );
+    `${BASE_URL}/activity/${mediaType}/${id}`,
+  {
+    headers: authHeaders(),
+  });
 
   return res.json();
 }
 export async function updateStatus(
+
   id: number,
   mediaType: "movie" | "tv",
   status: "watched" | "watching" | "watchlist" | "dropped"
 ) {
-  await fetch(`${BASE_URL}/activity/status`, {
+  console.log("Sending update:", { id, mediaType, status });
+  const res = await fetch(`${BASE_URL}/activity/status`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: authHeaders(),
     body: JSON.stringify({
-      tmdbId: Number(id),
+      id,
       mediaType,
       status,
     }),
   });
+
+  return res.json();
 }
 export async function signup(data: {
   password: string;
