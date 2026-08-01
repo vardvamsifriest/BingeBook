@@ -104,6 +104,7 @@ export async function GetWatched()
   const res = await fetch(`${BASE_URL}/activity/watched`, {
     headers: authHeaders(),
   });
+  return res.json()
 }
 export async function GetWatching()
 {
@@ -112,6 +113,7 @@ export async function GetWatching()
   const res = await fetch(`${BASE_URL}/activity/watching`, {
     headers: authHeaders(),
   });
+  return res.json()
 }
 export async function GetDropped()
 {
@@ -120,6 +122,7 @@ export async function GetDropped()
   const res = await fetch(`${BASE_URL}/activity/dropped`, {
     headers: authHeaders(),
   });
+  return res.json()
 }
 export async function removeActivity(id: string) {
   const res = await fetch(`${BASE_URL}/activity/${id}`, {
@@ -203,9 +206,7 @@ export async function saveReview(data: {
     `${BASE_URL}/activity/review`,
     {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: authHeaders(),
       body: JSON.stringify(data),
     }
   );

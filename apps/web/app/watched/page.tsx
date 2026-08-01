@@ -15,6 +15,7 @@ export default function Watching() {
   useEffect(() => {
     async function load() {
       const watched = await GetWatched();
+      console.log("Watched API:",watched)
 
       if (!Array.isArray(watched)) {
         console.log(watched);
@@ -44,9 +45,11 @@ export default function Watching() {
   }, []);
     if(loading)
     {
+      return (
       <Loading />
+      )
     }
-
+    console.log(items)
   return (
     <div className="bg-background min-h-screen p-8">
       <div className="flex justify-center relative">
@@ -95,6 +98,11 @@ export default function Watching() {
     <HoverCard
       id={item.id.toString()}
       mediaType={item.title ? "movie" : "tv"}
+      onStatusChange={(status) => {
+        if (status !== "watched") {
+          setItems(prev => prev.filter(x => x.id !== item.id));
+      }
+      }}
     />
   </div>
 

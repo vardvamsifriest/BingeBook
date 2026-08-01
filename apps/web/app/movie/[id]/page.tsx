@@ -82,7 +82,7 @@ export default async function MoviePage({ params }: { params: Promise<{ id: stri
               <ActivityButton tmdbId={movie.id} mediaType="movie" text="Watchlist" status="watchlist" />
               </div>
               <div className="pt-8 px-4">
-              <ActivityButton tmdbId={movie.id} mediaType="movie" text="Conitnue Watching" status="watching" />
+              <ActivityButton tmdbId={movie.id} mediaType="movie" text="Watching" status="watching" />
               </div>
               <div className="pt-8 px-4">
               <ActivityButton tmdbId={movie.id} mediaType="movie" text="Watched" status="watched" />

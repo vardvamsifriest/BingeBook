@@ -4,16 +4,55 @@ import { useEffect, useState } from "react";
 import { getProfile } from "@/lib/api";
 import {Loading} from "../components/loading"
 import Link from "next/link"
+import {tmdb,GetWatching,imageUrl,GetWatched} from "@/lib/api"
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<any>(null);
+  const [watching , setWatching] = useState<any>([]);
+  const [review , setReview] = useState<any>([])
 
     useEffect(() => {
   async function load() {
     const data = await getProfile();
+    const watching = await GetWatching()
+    const watched = await GetWatched()
     setProfile(data);
-    }
+    if (Array.isArray(watching)) {
+      const data = await Promise.all(
+        watching.map(async (item: any) => {
+          const details =
+            item.mediaType === "movie"
+              ? await tmdb.getMovie(item.tmdbId.toString())
+              : await tmdb.getTv(item.tmdbId.toString());
 
+          return {
+            ...details,
+            activityId: item._id,
+            mediaType: item.mediaType,
+          };
+        })
+      );
+      setWatching(data);
+      const reviewed = await Promise.all(
+        watched
+          .filter((item: any) => item.review)
+          .slice(0, 5)
+          .map(async (item: any) => {
+            const details =
+              item.mediaType === "movie"
+                ? await tmdb.getMovie(item.tmdbId.toString())
+                : await tmdb.getTv(item.tmdbId.toString());
+      
+            return {
+              ...item,
+              title: details.title || details.name,
+            };
+          })
+      );
+      
+      setReview(reviewed);
+  }
+  }
     load();
     }, []);
 
@@ -100,30 +139,89 @@ export default function ProfilePage() {
           </Link>
         </div>
 
-        {/* Continue Watching */}
+        
         <section className="mt-14">
-          <h2 className="text-2xl font-Ubuntu font-semibold text-text-primary mb-4">
-            Continue Watching
-          </h2>
+  <div className="flex items-center justify-between mb-4">
+    <h2 className="text-2xl font-Ubuntu font-semibold text-text-primary">
+      Continue Watching
+    </h2>
 
+    <Link
+      href="/watching"
+      className="font-Ubuntu text-accent hover:underline"
+    >
+      View All →
+    </Link>
+  </div>
           <div className="flex gap-5 overflow-x-auto scroll-custom pb-4">
-            {/* Movie cards go here */}
+              {watching.slice(0,5).map((item:any)=>(
+           <div key={item.id} >
+           <Link
+              
+              href={`/${item.title ? "movie" : "tv"}/${item.id}`}>
+            <img
+              src={imageUrl(item.poster_path,"poster")}
+              className="w-42 rounded-lg hover:scale-105 transition"/>
+              
+      </Link>
+      </div>
+    ))}
           </div>
         </section>
 
-        {/* Recent Reviews */}
-        <section className="mt-14">
-          <h2 className="text-2xl font-Ubuntu font-semibold text-text-primary mb-4">
-            Recent Reviews
-          </h2>
+        
+        <div className="mt-12">
+  <div className="flex justify-between items-center mb-5 pb-4">
+    <h2 className="font-Ubuntu text-2xl text-text-primary">
+      Recent Reviews
+    </h2>
 
-          <div className="space-y-4">
-            {/* Review cards go here */}
+    <Link
+      href="/reviews"
+      className="font-Ubuntu text-accent hover:underline"
+    >
+      View All →
+    </Link>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+  {review.map((review: any) => (
+    <Link
+      key={review._id}
+      href={`/${review.mediaType}/${review.tmdbId}`}
+    >
+      <div className="rounded-xl bg-surface p-5 hover:bg-surface/80 transition h-full ">
+
+        <div className="flex justify-between items-center">
+          <p className="font-Ubuntu text-xl text-text-primary line-clamp-1">
+            {review.title}
+          </p>
+
+          <div className="flex items-center gap-1">
+            ⭐
+            <span className="font-Ubuntu text-accent">
+              {review.rating}
+            </span>
           </div>
-        </section>
+        </div>
+
+        <p className="mt-4 font-Ubuntu text-accent italic line-clamp-5">
+          "{review.review}"
+        </p>
+
+        <div className="mt-5 flex justify-end">
+          <p className="font-Ubuntu text-xs text-accent">
+            {new Date(review.updatedAt).toLocaleDateString()}
+          </p>
+        </div>
 
       </div>
-
+    </Link>
+  ))}
+</div>
+</div>
     </div>
+    </div>
+ 
   );
 }

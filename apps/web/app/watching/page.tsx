@@ -98,6 +98,10 @@ export default function Watching() {
     <HoverCard
       id={item.id.toString()}
       mediaType={item.title ? "movie" : "tv"}
+      onStatusChange={(status) => {
+        if (status !== "watching") {
+          setItems(prev => prev.filter(x => x.id !== item.id));
+      }}}
     />
   </div>
 

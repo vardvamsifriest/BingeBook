@@ -90,7 +90,7 @@ export  default async function TvPage({ params }: { params: Promise<{ id: string
               <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watchlist" status="watchlist"  />
               </div>
               <div className="pt-8 px-4">
-              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Continue Watching" status="watching" />
+              <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watching" status="watching" />
               </div>
               <div className="pt-8 px-4">
               <ActivityButton tmdbId={tv.id} mediaType="tv" text="Watched" status="watched" />

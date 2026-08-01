@@ -125,8 +125,7 @@ router.put("/review",authMiddleware, async (req, res) => {
       upsert: true,
     }
   );
-  console.log(activity)
-  res.json(activity);
+ 
 });
 router.get("/:mediaType/:id",authMiddleware, async (req, res) => {
   try {
@@ -153,9 +152,7 @@ router.get("/:mediaType/:id",authMiddleware, async (req, res) => {
 });
 router.put("/status", authMiddleware, async (req, res) => {
 
-  console.log("STATUS ROUTE HIT");
-  console.log(req.body);
-  console.log(req.userId);
+ 
 
   try {
     const { id, mediaType, status } = req.body;
@@ -170,12 +167,12 @@ router.put("/status", authMiddleware, async (req, res) => {
         $set: { status },
       },
       {
-        new: true,
+        returnDocument: "after",
       }
     );
     
     res.json({
-      message: "Status Updated Successfully",
+      message: `Moved to ${status} `,
       activity: updated,
     });
    

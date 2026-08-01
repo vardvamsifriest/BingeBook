@@ -9,6 +9,7 @@ import {Loading} from  "../components/loading"
 interface HoverCardProps {
   id: string;
   mediaType: "movie" | "tv";
+  onStatusChange?: (status: "watchlist" | "watching" | "watched" | "dropped") => void;
 }
 
 export function HoverCard(props: HoverCardProps) {
@@ -97,12 +98,16 @@ export function HoverCard(props: HoverCardProps) {
         <ActivityControl tmdbId={Number(props.id)} 
         mediaType={props.mediaType} 
         currentStatus={activity?.status} 
-        onStatusChange={(status) =>
+        onStatusChange={(status) => {
           setActivity((prev: any) => ({
             ...prev,
             status,
-          }))
-        }/>
+          }));
+      
+          props.onStatusChange?.(status);
+          alert(`Moved to ${status}`)
+        }}
+      />
       </div>
         <div className="pt-2">
             <DeleteButton id={activity?._id?.toString()} />
