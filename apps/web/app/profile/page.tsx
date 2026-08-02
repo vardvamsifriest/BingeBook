@@ -36,7 +36,8 @@ export default function ProfilePage() {
       const reviewed = await Promise.all(
         watched
           .filter((item: any) => item.review)
-          .slice(0, 5)
+          .slice(0, 6).sort((a:any , b:any)=>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
           .map(async (item: any) => {
             const details =
               item.mediaType === "movie"
@@ -81,7 +82,7 @@ export default function ProfilePage() {
 
           <div className="pb-6">
             <h1 className="text-5xl font-bold font-Ubuntu text-background">
-              {user?.username}
+               {user?.username}
             </h1>
 
             <p className="text-text-muted font-Ubuntu mt-2">
@@ -124,7 +125,7 @@ export default function ProfilePage() {
           </div>
           </Link>
 
-          <Link href="/watched">
+          <Link href="/reviews">
           <div className="bg-surface rounded-xl p-5 text-center hover:scale-105 transition-all">
             <p className="text-3xl font-bold text-text-primary">{stats?.reviews}</p>
             <p className="text-text-muted text-sm mt-1">Reviews</p>
@@ -184,7 +185,7 @@ export default function ProfilePage() {
     </Link>
   </div>
 
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pb-8">
   {review.map((review: any) => (
     <Link
       key={review._id}

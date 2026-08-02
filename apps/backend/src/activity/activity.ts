@@ -105,27 +105,39 @@ router.get("/dropped",authMiddleware, async (req, res) => {
     });
   }
 });
-router.put("/review",authMiddleware, async (req, res) => {
-  const { tmdbId, mediaType, rating, review } = req.body;
-  console.log(req.body)
-  const activity = await ActivityModel.findOneAndUpdate(
-    {
-      userId:req.userId,
-      tmdbId,
-      mediaType,
-      status:"watched"
-    },
-    {
-      rating,
-      review,
-      updatedAt: new Date(),
-    },
-    {
-      new: true,
-      upsert: true,
-    }
-  );
- 
+router.put("/review", authMiddleware, async (req, res) => {
+  try {
+    const { tmdbId, mediaType, rating, review } = req.body;
+
+    const activity = await ActivityModel.findOneAndUpdate(
+      {
+        userId: req.userId,
+        tmdbId,
+        mediaType,
+        status: "watched",
+      },
+      {
+        rating,
+        review,
+        updatedAt: new Date(),
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+
+    return res.json({
+      message: "Review saved successfully",
+      activity,
+    });
+  } catch (e) {
+    console.error(e);
+
+    return res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
 });
 router.get("/:mediaType/:id",authMiddleware, async (req, res) => {
   try {

@@ -20,13 +20,16 @@ export function SearchBar()
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search movies, shows, people..."
           className="w-75 p-3 rounded-lg bg-accent"
+          onKeyDown={(e)=>{
+            if(e.key=="Enter")
+            {
+                handleSearch()
+            }
+          }}
         />
-
         <div className="px-4 py-2 rounded-lg bg-accent text-white">
             <Button size="sm" variant="primary" text="Search" onClick={handleSearch}/>
-        </div>
-         
-       
+            </div>
       </div>
     )
 }

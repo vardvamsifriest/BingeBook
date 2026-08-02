@@ -81,17 +81,22 @@ export function ReviewCard(props:ReviewCardProps)
                 </p>
             </div>
             <div className="flex justify-center pt-5">
-                <Button size = "md" variant="primary" text="Save review"  onClick={async()=>{
-                  
-                   await saveReview({
-                    tmdbId:props.tmdbId,
-                    mediaType:props.mediaType,
-                    rating,
-                    review,
-                  });
-                 
-                  {props.onClose()}
-                }}
+                <Button size = "md" variant="primary" text="Save review"  onClick={async () => {
+                    console.log("1");
+
+  await saveReview({
+    tmdbId: props.tmdbId,
+    mediaType: props.mediaType,
+    rating,
+    review,
+  });
+
+  console.log("2");
+
+  props.onClose();
+
+  console.log("3");
+}}
                 />
             </div>
             
