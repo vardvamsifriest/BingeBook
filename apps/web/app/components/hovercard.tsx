@@ -5,6 +5,7 @@ import { ActivityControl } from "../components/activitycontrols";
 import { DeleteButton } from "../components/deletebutton";
 import {useState , useEffect} from "react"
 import {Loading} from  "../components/loading"
+import {useToast} from "../components/toastprovider"
 
 interface HoverCardProps {
   id: string;
@@ -15,6 +16,7 @@ interface HoverCardProps {
 export function HoverCard(props: HoverCardProps) {
   const [media, setMedia] = useState<any>(null);
   const [activity, setActivity] = useState<any>(null);
+  const { showToast } = useToast();
 
   useEffect(() => {
     async function load() {
@@ -105,7 +107,10 @@ export function HoverCard(props: HoverCardProps) {
           }));
       
           props.onStatusChange?.(status);
-          alert(`Moved to ${status}`)
+          showToast({
+            type:"success",
+            message:`Moved to ${status}`
+          })
         }}
       />
       </div>

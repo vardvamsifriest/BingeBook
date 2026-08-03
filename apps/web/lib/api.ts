@@ -36,7 +36,7 @@ export const tmdb = {
     return res.json()
   },
 getPerson: async (id: string) => {
-  const url = `${BASE_URL}/tmdb/person/${id}`; // Verify if /tmdb/ is needed or not
+  const url = `${BASE_URL}/tmdb/person/${id}`;
   const res = await fetch(url, {
   });
 
