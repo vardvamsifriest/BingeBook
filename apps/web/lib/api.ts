@@ -3,7 +3,6 @@ const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
 
 function authHeaders() {
   const token = localStorage.getItem("token");
-
   return {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,

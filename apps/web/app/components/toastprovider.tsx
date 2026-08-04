@@ -33,27 +33,23 @@ export function ToastProvider({
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-
+  
       {toast && (
-        <div
-          className={`fixed top-6 right-6 z-50 rounded-xl px-5 py-3 shadow-xl font-Ubuntu text-background transition-all
-            ${
-              toast.type === "success"
-                ? "bg-green-600"
-                : toast.type === "error"
-                ? "bg-red-600"
-                : toast.type === "warning"
-                ? "bg-yellow-500 text-black"
-                : "bg-blue-600"
-            }`}
-        >
-          {toast.message}
-        </div>
-      )}
-    </ToastContext.Provider>
-  );
-}
+  <div
+    className=
+     "fixed bottom-10 right-6 p-5 w-96 rounded-xl shadow-2xl bg-accent font-Ubuntu text-background">
+    <p className="text-base leading-6 break-words">
+      {toast.message}
+    </p>
 
+    {toast.type === "error" && (
+      <div className="absolute bottom-0 left-0 h-[3px] w-full rounded-b-xl bg-red-600" />
+    )}
+  </div>
+)}
+      
+    </ToastContext.Provider>
+  );}
 export function useToast() {
   const context = useContext(ToastContext);
 

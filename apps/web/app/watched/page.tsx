@@ -81,39 +81,47 @@ export default function Watching() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-10">
+  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-20 pb-20">
         
       {items.map((item: any) => (
-  <div key={item.id} className="relative group w-fit">
-  <Link href={`/${item.title ? "movie" : "tv"}/${item.id}`}>
-    <img
-      src={imageUrl(item.poster_path, "poster")}
-      className="w-full rounded-lg transition duration-300 group-hover:brightness-40"
-    />
-  </Link>
+  <div key={item.id} className="w-fit">
 
- 
+    <div className="relative group">
 
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
-    <HoverCard
-      id={item.id.toString()}
-      mediaType={item.title ? "movie" : "tv"}
-      onStatusChange={(status) => {
-        if (status !== "watched") {
-          setItems(prev => prev.filter(x => x.id !== item.id));
-      }
-      }}
-    />
-  </div>
+      <Link href={`/${item.title ? "movie" : "tv"}/${item.id}`}>
+        <img
+          src={imageUrl(item.poster_path, "poster")}
+          className="w-full rounded-lg transition duration-300 group-hover:brightness-40"
+        />
+      </Link>
 
-  <div className="flex justify-center">
-    <p className="font-Ubuntu text-text-primary mt-2 text-center">
-      {item.title || item.name}
-    </p>
-  </div>
-</div>
-))}   
+      <div className="absolute inset-0 hidden group-hover:flex items-center justify-center z-10">
+        <HoverCard
+          id={item.id.toString()}
+          mediaType={item.title ? "movie" : "tv"}
+          onDelete={() =>
+            setItems(prev => prev.filter(x => x.id !== item.id))
+        }
+          onStatusChange={(status) => {
+            if (status !== "watched") {
+              setItems(prev => prev.filter(x => x.id !== item.id));
+            }
+            
+          }}
+        />
       </div>
+
     </div>
-  );
-}
+
+    <div className="flex justify-center">
+      <p className="font-Ubuntu text-text-primary mt-2 text-center">
+        {item.title || item.name}
+      </p>
+    </div>
+
+  </div>
+  
+))}
+</div>
+</div>
+  )}

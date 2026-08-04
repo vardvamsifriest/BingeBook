@@ -11,6 +11,7 @@ interface HoverCardProps {
   id: string;
   mediaType: "movie" | "tv";
   onStatusChange?: (status: "watchlist" | "watching" | "watched" | "dropped") => void;
+  onDelete?: () => void;
 }
 
 export function HoverCard(props: HoverCardProps) {
@@ -114,8 +115,12 @@ export function HoverCard(props: HoverCardProps) {
         }}
       />
       </div>
+      
         <div className="pt-2">
-            <DeleteButton id={activity?._id?.toString()} />
+        <DeleteButton
+    id={activity?._id?.toString()}
+    onDelete={props.onDelete}
+/>
         </div>
       </div>
     

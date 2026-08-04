@@ -12,6 +12,10 @@
     src:url(./fonts/Inter/intermain.ttf
     )
 }
+html,
+body {
+  @apply bg-background;
+}
 .scroll-custom::-webkit-scrollbar {
     height: 7px;
   }

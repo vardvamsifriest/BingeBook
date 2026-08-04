@@ -11,12 +11,14 @@ import {StarIcon} from "../components/icons/staricon"
 import {Button} from "@repo/ui"
 import {saveReview,tmdb} from "@/lib/api"
 import {CrossIcon} from "../components/icons/crossicon"
+import {useToast} from "../components/toastprovider"
 export function ReviewCard(props:ReviewCardProps)
 
 {
     const[rating,setRating] = useState(0)
     const[hoveredStar,setHoveredStar] = useState(0)
     const[review,setReview] = useState("")
+    const {showToast} = useToast()
 
     return (
         <div className="bg-accent h-140 w-90 rounded-lg">
@@ -93,7 +95,11 @@ export function ReviewCard(props:ReviewCardProps)
 
 
 
-  props.onClose();
+                props.onClose();
+                showToast ({
+                    type:"success",
+                    message:"Review saved succesfully"
+                })
 
 }}
                 />

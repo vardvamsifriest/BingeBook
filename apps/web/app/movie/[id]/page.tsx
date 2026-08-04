@@ -4,20 +4,20 @@ import {ActivityButton} from "../../components/activitybutton"
 import {SearchBar} from "../../components/searchbar"
 import {MovieActions} from "../../components/movieaction"
 import {UserIcon} from "../../components/icons/usericon"
-import {useToast} from "../../components/toastprovider"
+
 export default async function MoviePage({ params }: { params: Promise<{ id: string }> })
 {
     const { id } = await params
     const movie = await tmdb.getMovie(id)
     const similar = await tmdb.getSimilar(id)
-    const {showToast} = useToast()
+
     return (
         <div className="bg-background min-h-screen">
         <div className="bg-accent h-24 w-full" />
         <div>
           <Link href={`/profile`}>
           <div className="flex justify-end -translate-y-15 -translate-x-10">
-            <UserIcon variant="secondary" />
+            <UserIcon variant="secondary"/>
           </div>
           </Link>
         </div>

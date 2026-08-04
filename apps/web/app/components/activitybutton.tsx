@@ -1,6 +1,7 @@
 "use client"
 import {Button} from "@repo/ui"
 import {addActivity} from "@/lib/api"
+import {useToast} from "../components/toastprovider"
 interface activityprops {
     tmdbId:number,
     mediaType:"movie"|"tv"
@@ -11,6 +12,7 @@ interface activityprops {
 }
 export function ActivityButton(props:activityprops)
 {
+  const {showToast} = useToast()
   async function handleClick() {
     if (props.onClick) {
       props.onClick();
@@ -23,7 +25,10 @@ export function ActivityButton(props:activityprops)
       status: props.status,
     });
   
-    alert(data.message);
+    showToast({
+      type:"success",
+      message:`${data.message}`
+    })
   }
     return (
         <div>

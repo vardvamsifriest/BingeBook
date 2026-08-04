@@ -81,7 +81,7 @@ export default function Watching() {
         </div>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-20 pb-20">
         
       {items.map((item: any) => (
   <div key={item.id} className="relative group w-fit">
@@ -94,10 +94,13 @@ export default function Watching() {
 
   
 
-  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+  <div className="absolute inset-0 hidden group-hover:flex items-center justify-center z-10">
     <HoverCard
       id={item.id.toString()}
       mediaType={item.title ? "movie" : "tv"}
+      onDelete={() =>
+        setItems(prev => prev.filter(x => x.id !== item.id))
+    }
       onStatusChange={(status) => {
         if (status !== "watching") {
           setItems(prev => prev.filter(x => x.id !== item.id));

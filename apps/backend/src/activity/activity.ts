@@ -206,21 +206,31 @@ router.put("/:id",authMiddleware,async(req,res)=>{
   res.status(500).json({message:"Something went wrong"})
  }
 })
-console.log("FIRST ROUTER LOADED");
 
-router.delete("/:id", authMiddleware ,async (req, res) => {
+
+router.delete("/:id", authMiddleware, async (req, res) => {
+  
+
   try {
-    await ActivityModel.findByIdAndDelete(req.params.id);
+    const deleted = await ActivityModel.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.userId,
+    });
+    
+
+    
 
     res.json({
       message: "Activity deleted",
     });
   } catch (e) {
+    console.log(e);
     res.status(500).json({
       message: "Something went wrong",
     });
   }
 });
+
 
 
 export default router;
