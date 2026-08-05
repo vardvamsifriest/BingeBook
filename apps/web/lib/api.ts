@@ -1,5 +1,7 @@
+import {useToast} from "../app/components/toastprovider"
 const BASE_URL = "http://localhost:3001";
 const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
+
 
 function authHeaders() {
   const token = localStorage.getItem("token");
@@ -172,19 +174,24 @@ export async function updateStatus(
 }
 export async function signup(data: {
   password: string;
-  email:string;
-  username:string;
-})
-{
-  const res = await fetch(`${BASE_URL}/auth/signup`,{
-    method:"POST",
-    headers : {
-      "Content-Type":"application/json"
+  email: string;
+  username: string;
+}) {
+  const res = await fetch(`${BASE_URL}/auth/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+  });
 
-  })
-  return res.json()
+  const json = await res.json();
+
+  if (!res.ok) {
+    throw new Error(json.message);
+  }
+
+  return json;
 }
 
 export async function signin(data: {

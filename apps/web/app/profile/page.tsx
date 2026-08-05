@@ -5,12 +5,15 @@ import { getProfile } from "@/lib/api";
 import {Loading} from "../components/loading"
 import Link from "next/link"
 import {tmdb,GetWatching,imageUrl,GetWatched} from "@/lib/api"
+import {Button} from "@repo/ui"
+import {ExitIcon} from "../components/icons/exiticon"
+import { useRouter } from "next/navigation"
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<any>(null);
   const [watching , setWatching] = useState<any>([]);
   const [review , setReview] = useState<any>([])
-
+  const router = useRouter()
     useEffect(() => {
   async function load() {
     const data = await getProfile();
@@ -69,12 +72,12 @@ export default function ProfilePage() {
 
       
       <div className="h-48 bg-accent" />
-
+      
       <div className="max-w-7xl mx-auto px-8 -mt-20">
-
+      
         
         <div className="flex items-end gap-8">
-
+        
           <img
             src={user?.avatar || "/placeholder.png"}
             className="w-40 h-40 rounded-full object-cover border-4 border-background shadow-xl"
@@ -88,7 +91,7 @@ export default function ProfilePage() {
             <p className="text-text-muted font-Ubuntu mt-2">
               {user?.email}
             </p>
-
+           
             <p className="text-sm text-text-muted mt-1">
               Joined{" "}
               {new Date(user?.createdAt).toLocaleDateString("en-IN", {
@@ -98,9 +101,13 @@ export default function ProfilePage() {
               })}
             </p>
           </div>
-
+         
         </div>
-
+        <div className="pt-8">
+        <Button variant="primary" text="Log out" size="md" starticon={<ExitIcon />} onClick={()=>{
+          router.push("/")
+        }}/>
+      </div>
         
         <div className="grid grid-cols-5 gap-4 mt-10">
             

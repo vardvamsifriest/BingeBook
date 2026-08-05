@@ -4,25 +4,35 @@ import { Card } from "@repo/ui"
 import {useState} from "react"
 import {signin} from "@/lib/api"
 import {useRouter} from "next/navigation"
+import {useToast} from "../components/toastprovider"
 
-export default function Signup() {
+export default function Signin() {
   const [password,setPassword] = useState("");
   const [email,setEmail] = useState("");
   const [username,setUsername] = useState("")
   const router = useRouter()
-  async function handleSignin()
-  {
-    const data = await signin({
-      password,
-      email
-    })
-    if(data.token)
-    {
-      localStorage.setItem("token", data.token);
-      router.push("/watched")
+  const {showToast} = useToast()
+  async function handleSignin() {
+    try {
+      const data = await signin({
+        email,
+        password,
+      });
+  
+      showToast({
+        type: "success",
+        message: data.message,
+      });
+  
+      router.push("/watched");
+    } catch (e: any) {
+      showToast({
+        type: "error",
+        message: e.message,
+      });
     }
-    
   }
+  
   return (
     <div className="bg-background h-screen w-full">
       
@@ -45,5 +55,4 @@ export default function Signup() {
       </div>
 
     </div>
-  )
-}
+  )}

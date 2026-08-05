@@ -82,7 +82,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
             </div>
           </div>
 
-          {/* Right Column: Name & Biography */}
+          
           <div className="flex-1 min-w-0 pt-2">
             <h1 className="text-4xl md:text-5xl font-Ubuntu font-bold text-background">
               {person.name}
@@ -92,7 +92,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
               {person.known_for_department}
             </p>
 
-            {/* Biography */}
+          
             <div className="mt-8">
               <h2 className="text-2xl font-Ubuntu font-semibold text-text-primary">
                 Biography
@@ -107,7 +107,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
 
         <hr className="my-10 border-surface" />
 
-        {/* Known For Section */}
+      
         <div>
           <h2 className="text-2xl font-Ubuntu font-semibold text-text-primary mb-4">
             Known For
@@ -133,7 +133,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
 
-        {/* Filmography Section (Compact) */}
+        
         <div className="mt-12">
           <h2 className="text-2xl font-Ubuntu font-semibold text-text-primary mb-6">
             Filmography
