@@ -63,7 +63,7 @@ export default function Watching() {
         
       </div>
 
-      <div className="flex justify-center items-center gap-8 pt-10">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-10 relative">
         <Link href="/watched">
           <Button variant="secondary" text="Watched" size="lg" />
         </Link>
@@ -76,8 +76,8 @@ export default function Watching() {
           <Button variant="secondary" text="Dropped" size="lg" />
         </Link>
         
-        <div className="absolute right-6">
-          <SearchBar/>
+        <div className="w-full flex justify-center mt-4 md:w-auto md:mt-0 md:absolute md:right-6">
+          <SearchBar />
         </div>
       </div>
       

@@ -39,7 +39,7 @@ export default function Signup() {
       
       <div className="bg-accent w-screen h-30">
         <div className="flex justify-center -translate-y-38">
-          <Logo />
+          <Logo variant="primary" />
         </div>
       </div>
 

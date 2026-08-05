@@ -38,7 +38,7 @@ export default function Signin() {
       
       <div className="bg-accent w-screen h-30">
         <div className="flex justify-center -translate-y-38">
-          <Logo />
+          <Logo variant="secondary" />
         </div>
       </div>
 
