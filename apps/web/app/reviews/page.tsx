@@ -1,13 +1,16 @@
 "use client"
 import {useEffect , useState} from "react"
-import {tmdb , GetWatched} from "@/lib/api"
+import {tmdb , GetWatched , deleteReview} from "@/lib/api"
 import {SearchBar} from "../components/searchbar"
 import {UserIcon} from "../components/icons/usericon"
+import {DeleteIcon} from "../components/icons/deleteicon"
+import {useToast} from "../components/toastprovider"
 import Link from "next/link"
 
 export default function ReviewPage()
 {
     const [review , setReview] = useState<any>([])
+    const {showToast} = useToast()
     useEffect(()=>{
         async function load()
         {
@@ -61,13 +64,29 @@ export default function ReviewPage()
                  <p className="font-Ubuntu text-xl text-text-primary line-clamp-1">
                     {review.title}
                  </p>
-
+              
           <div className="flex items-center gap-1">
             ⭐
             <span className="font-Ubuntu text-accent">
               {review.rating}
             </span>
           </div>
+          <div>
+                <DeleteIcon  onClick={async (e) => {
+                  
+                  e.preventDefault()
+                  e.stopPropagation()
+                  await deleteReview(review._id);
+
+              setReview((prev:any[]) =>
+      prev.filter((r: any) => r._id !== review._id)
+    );
+      showToast({
+      type: "success",
+      message: "Review deleted.",
+    });
+  }} />
+              </div>
         </div>
 
         <p className="mt-4 font-Ubuntu text-accent italic line-clamp-5">

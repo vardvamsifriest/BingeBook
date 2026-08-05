@@ -143,6 +143,14 @@ export async function GetActivity(
 
   return res.json();
 }
+export async function deleteReview(id: string) {
+  const res = await fetch(`${BASE_URL}/activity/review/${id}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  });
+
+  return res.json();
+}
 export async function updateStatus(
 
   id: number,

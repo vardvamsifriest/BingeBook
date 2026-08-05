@@ -196,6 +196,38 @@ router.put("/status", authMiddleware, async (req, res) => {
   }
   
 });
+router.delete("/review/:id", authMiddleware, async (req, res) => {
+  try {
+    const activity = await ActivityModel.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        userId: req.userId,
+      },
+      {
+        $unset: {
+          review: "",
+          rating: "",
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!activity) {
+      return res.status(404).json({
+        message: "Review not found",
+      });
+    }
+    res.json({
+      message: "Review deleted",
+      activity,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+});
 router.put("/:id",authMiddleware,async(req,res)=>{
   try{
       const updated = await ActivityModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
