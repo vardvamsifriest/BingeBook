@@ -196,19 +196,25 @@ export async function signup(data: {
 
 export async function signin(data: {
   password: string;
-  email:string;
-  
-})
-{
-  const res = await fetch(`${BASE_URL}/auth/signin`,{
-    method:"POST",
-    headers : {
-      "Content-Type":"application/json"
+  email: string;
+}) {
+  const res = await fetch(`${BASE_URL}/auth/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+  });
 
-  })
-  return res.json()
+  const json = await res.json();
+
+  if (!res.ok) {
+    throw new Error(json.message);
+  }
+
+  localStorage.setItem("token", json.token);
+
+  return json;
 }
 export async function saveReview(data: {
   tmdbId: number;

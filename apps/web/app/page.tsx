@@ -2,7 +2,7 @@ import { Logo } from "./components/logo";
 import { Button } from "@repo/ui";
 import { tmdb, imageUrl } from "@/lib/api";
 import {ProgressTracker} from "./components/icons/playicon"
-import {StarIcon} from "./components/icons/staricon"
+import {RatingIcon} from "./components/icons/ratingicon"
 import {Bookmark} from "./components/icons/bookmark"
 import {Notebook} from "./components/icons/notebook"
 import Link from "next/link";
@@ -16,7 +16,7 @@ export default async function Landing() {
      
       <div className="bg-accent h-30 px-8 flex items-center justify-between">
         <div className="pt-16 pr-4">
-           <Logo />
+           <Logo variant="primary" />
         </div>
 
         <div className="flex gap-4">
@@ -133,7 +133,7 @@ export default async function Landing() {
         </div>
 
     <div className="bg-mid rounded-2xl p-8 border border-text-secondary/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-      <div className="text-4xl mb-6 pt-10"><StarIcon/></div>
+      <div className="text-4xl mb-6 pt-10"><RatingIcon/></div>
       <h3 className="text-xl font-Ubuntu text-text-primary mb-3">
         Personal Ratings
       </h3>

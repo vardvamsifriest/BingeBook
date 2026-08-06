@@ -5,6 +5,7 @@
     "strictNullChecks": true,
     "jsx": "preserve",
     "module": "esnext",
+    "ignoreDeprecations": "6.0",
     "moduleResolution": "node",
     "paths": {
       "@/*":["./*"],

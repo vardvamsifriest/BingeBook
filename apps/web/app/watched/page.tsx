@@ -15,7 +15,7 @@ export default function Watching() {
   useEffect(() => {
     async function load() {
       const watched = await GetWatched();
-      console.log("Watched API:",watched)
+      
 
       if (!Array.isArray(watched)) {
         console.log(watched);
@@ -63,6 +63,9 @@ export default function Watching() {
         </Link>
       </div>
 
+     
+
+
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-10 relative">
         <Link href="/watchlist">
           <Button variant="secondary" text="Watchlist" size="lg" />
@@ -81,6 +84,13 @@ export default function Watching() {
         </div>
       </div>
 
+      {items.length == 0 && (
+          <div className="flex h-[60vh] items-center justify-center">
+      <p className="font-Ubuntu text-accent text-2xl">
+      Nothing watched yet.
+      </p>
+    </div> 
+      )}
   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-20 pb-20">
         
       {items.map((item: any) => (

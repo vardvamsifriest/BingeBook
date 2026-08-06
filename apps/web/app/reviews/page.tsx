@@ -55,6 +55,14 @@ export default function ReviewPage()
             </Link>
            
             </div>
+            
+            {review.length == 0 && (
+          <div className="flex h-[60vh] items-center justify-center">
+             <p className="font-Ubuntu text-accent text-2xl">
+             Nothing has been dropped.
+            </p>
+          </div> 
+      )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 pt-20 pl-8 pr-8">
                     {review.map((review: any) => (
             <Link key={review._id} href={`/${review.mediaType}/${review.tmdbId}`}>

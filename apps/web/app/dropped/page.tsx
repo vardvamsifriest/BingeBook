@@ -78,6 +78,13 @@ export default function Watching() {
         </div>
       </div>
 
+      {items.length == 0 && (
+          <div className="flex h-[60vh] items-center justify-center">
+      <p className="font-Ubuntu text-accent text-2xl">
+        Nothing has been dropped.
+      </p>
+    </div> 
+      )}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-20 pb-20">
         
       {items.map((item: any) => (
@@ -88,7 +95,7 @@ export default function Watching() {
       className="w-full rounded-lg transition duration-300 group-hover:brightness-40"
     />
   </Link>
-
+      
   
 
   <div className="absolute inset-0 hidden group-hover:flex items-center justify-center z-10">

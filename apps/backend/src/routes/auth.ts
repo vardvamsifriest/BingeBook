@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import { UserModel,ActivityModel} from "@repo/db"
 import {authMiddleware} from "../middleware"
 import {CreateUserSchema , SigninSchema} from "@repo/common"
+import bcrypt from "bcrypt"
 const router: Router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET!
 
@@ -22,10 +23,12 @@ router.post("/signup", async (req, res) => {
   }
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const response = await UserModel.create({
       email,
-      password,
       username,
+      password: hashedPassword,
     });
 
     res.json({
@@ -48,10 +51,8 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
-  const result = SigninSchema.safeParse({
-    email,
-    password,
-  });
+  const result = SigninSchema.safeParse(
+    req.body);
 
   if (!result.success) {
     return res.status(400).json({
@@ -62,7 +63,6 @@ router.post("/signin", async (req, res) => {
   try {
     const user = await UserModel.findOne({
       email,
-      password,
     });
 
     if (!user) {
@@ -70,7 +70,13 @@ router.post("/signin", async (req, res) => {
         message: "Incorrect credentials.",
       });
     }
-
+    const valid  = await bcrypt.compare(password,user.password!)
+    if(!valid)
+    {
+      return res.status(403).json({
+        message: "Incorrect credentials",
+      });
+    }
     const token = jwt.sign(
       { id: user._id.toString() },
       JWT_SECRET

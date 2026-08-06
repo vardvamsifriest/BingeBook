@@ -72,11 +72,18 @@ export default function Watching() {
           <Button variant="secondary" text="Dropped" size="lg" />
         </Link>
 
-        <div className="w-full flex justify-center mt-4 md:w-auto md:mt-0 md:absolute md:right-6"
->
-  <SearchBar />
-</div>
+        <div className="w-full flex justify-center mt-4 md:w-auto md:mt-0 md:absolute md:right-6">
+          <SearchBar />
+        </div>
       </div>
+
+      {items.length == 0 && (
+          <div className="flex h-[60vh] items-center justify-center">
+      <p className="font-Ubuntu text-accent text-2xl">
+      Your watchlist is empty.
+      </p>
+    </div> 
+      )}
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 pt-20 pb-20">
         

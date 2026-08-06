@@ -72,7 +72,6 @@ export default function ProfilePage() {
 
       
       <div className="h-48 bg-accent" />
-      
       <div className="max-w-7xl mx-auto px-8 -mt-20">
       
         
@@ -183,15 +182,22 @@ export default function ProfilePage() {
     <h2 className="font-Ubuntu text-2xl text-text-primary">
       Recent Reviews
     </h2>
-
+   
     <Link
       href="/reviews"
       className="font-Ubuntu text-accent hover:underline"
     >
       View All →
     </Link>
+    
   </div>
-
+  {review.length == 0 && (
+          <div className="flex h-[-20vh] items-center justify-start">
+             <p className="font-Ubuntu text-accent text-xl">
+             No reviews yet.
+            </p>
+          </div> 
+      )}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pb-8">
   {review.map((review: any) => (
     <Link

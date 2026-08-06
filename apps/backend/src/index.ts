@@ -9,7 +9,7 @@ import {authMiddleware} from "./middleware"
 const app = express()
 app.use(express.json())
 app.use(cors())
-mongoose.connect("mongodb+srv://vardhanvamsi587_db_user:VA44**msi@cluster0.yrkholx.mongodb.net/kinora")
+mongoose.connect(process.env.MONGO_URL!)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err))
 
