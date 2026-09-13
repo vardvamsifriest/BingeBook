@@ -123,9 +123,6 @@ importers:
 
   packages/common:
     dependencies:
-      '@zod':
-        specifier: link:types/@zod
-        version: link:types/@zod
       zod:
         specifier: ^4.4.3
         version: 4.4.3

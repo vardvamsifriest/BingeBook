@@ -12,7 +12,6 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@zod": "link:types/@zod",
     "zod": "^4.4.3"
   },
   "devDependencies": {

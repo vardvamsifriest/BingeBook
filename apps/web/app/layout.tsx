@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description: "Your cinematic vault",
 };
 
+export const dynamic = 'force-dynamic';
 export default function RootLayout({
   children,
 }: {

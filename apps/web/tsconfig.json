@@ -5,8 +5,8 @@
     "strictNullChecks": true,
     "jsx": "preserve",
     "module": "esnext",
-    "ignoreDeprecations": "6.0",
-    "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*":["./*"],
       "@repo/ui": ["../../packages/ui/src/index.ts"],
