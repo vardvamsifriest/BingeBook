@@ -1,5 +1,5 @@
 import {useToast} from "../app/components/toastprovider"
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://localhost:3002";
 const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
 
 

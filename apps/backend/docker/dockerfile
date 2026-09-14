@@ -1,26 +1,45 @@
 FROM node:20-alpine AS base
+
 RUN corepack enable
+RUN corepack prepare pnpm@9.0.0 --activate
+
 
 FROM base AS pruner
+
 WORKDIR /app
+
 COPY . .
+
 RUN pnpm dlx turbo prune backend --docker
 
+
 FROM base AS installer
+
 WORKDIR /app
+
 COPY --from=pruner /app/out/json/ .
 COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+
 RUN pnpm install --frozen-lockfile
+
 COPY --from=pruner /app/out/full/ .
+
 RUN pnpm turbo run build --filter=backend
 
+RUN pnpm --filter backend deploy --prod /app/deploy
+
+
 FROM base AS runner
+
 WORKDIR /app
+
 RUN addgroup -S nodejs && adduser -S express -G nodejs
-COPY --from=installer /app/apps/backend/dist ./dist
-COPY --from=installer /app/apps/backend/package.json ./package.json
-COPY --from=installer /app/node_modules ./node_modules
+
+COPY --from=installer /app/deploy ./
+
 USER express
+
 EXPOSE 3001
+
 CMD ["node", "dist/index.js"]
