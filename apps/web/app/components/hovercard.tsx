@@ -1,5 +1,5 @@
 "use client"
-import { tmdb, GetActivity, updateStatus } from "@/lib/api";
+import { clientTmdb, GetActivity, updateStatus } from "@/lib/api";
 import { StarIcon } from "./icons/staricon";
 import { ActivityControl } from "../components/activitycontrols";
 import { DeleteButton } from "../components/deletebutton";
@@ -23,8 +23,8 @@ export function HoverCard(props: HoverCardProps) {
     async function load() {
       const mediaData =
         props.mediaType === "movie"
-          ? await tmdb.getMovie(props.id)
-          : await tmdb.getTv(props.id);
+          ? await clientTmdb.getMovie(props.id)
+          : await clientTmdb.getTv(props.id);
 
       const activityData = await GetActivity(
         props.id,

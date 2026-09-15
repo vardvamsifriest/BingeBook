@@ -1,5 +1,5 @@
 "use client"
-import { GetWatchlist, tmdb, imageUrl } from "@/lib/api";
+import { GetWatchlist, clientTmdb, imageUrl } from "@/lib/api";
 import { Button } from "@repo/ui";
 import {SearchBar} from "../components/searchbar" 
 import Link from "next/link";
@@ -26,8 +26,8 @@ export default function Watching() {
         watchlist.map(async (item: any) => {
           const details =
             item.mediaType === "movie"
-              ? await tmdb.getMovie(item.tmdbId.toString())
-              : await tmdb.getTv(item.tmdbId.toString());
+              ? await clientTmdb.getMovie(item.tmdbId.toString())
+              : await clientTmdb.getTv(item.tmdbId.toString());
 
           return {
             ...details,

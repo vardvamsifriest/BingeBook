@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getProfile } from "@/lib/api";
 import {Loading} from "../components/loading"
 import Link from "next/link"
-import {tmdb,GetWatching,imageUrl,GetWatched} from "@/lib/api"
+import {clientTmdb,GetWatching,imageUrl,GetWatched} from "@/lib/api"
 import {Button} from "@repo/ui"
 import {ExitIcon} from "../components/icons/exiticon"
 import { useRouter } from "next/navigation"
@@ -25,8 +25,8 @@ export default function ProfilePage() {
         watching.map(async (item: any) => {
           const details =
             item.mediaType === "movie"
-              ? await tmdb.getMovie(item.tmdbId.toString())
-              : await tmdb.getTv(item.tmdbId.toString());
+              ? await clientTmdb.getMovie(item.tmdbId.toString())
+              : await clientTmdb.getTv(item.tmdbId.toString());
 
           return {
             ...details,
@@ -44,8 +44,8 @@ export default function ProfilePage() {
           .map(async (item: any) => {
             const details =
               item.mediaType === "movie"
-                ? await tmdb.getMovie(item.tmdbId.toString())
-                : await tmdb.getTv(item.tmdbId.toString());
+                ? await clientTmdb.getMovie(item.tmdbId.toString())
+                : await clientTmdb.getTv(item.tmdbId.toString());
       
             return {
               ...item,

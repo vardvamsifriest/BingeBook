@@ -1,11 +1,11 @@
-import { tmdb, imageUrl } from "@/lib/api";
+import { clientTmdb, imageUrl } from "@/lib/api";
 import Link from "next/link";
 
 export default async function PersonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const person = await tmdb.getPerson(id);
-  const credits = await tmdb.getPersonCredits(id);
+  const person = await clientTmdb.getPerson(id);
+  const credits = await clientTmdb.getPersonCredits(id);
 
   const knownFor = credits.cast
     ?.sort((a: any, b: any) => b.popularity - a.popularity)

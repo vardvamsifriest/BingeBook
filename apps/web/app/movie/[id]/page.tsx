@@ -1,4 +1,4 @@
-import {tmdb,imageUrl} from "@/lib/api"
+import {clientTmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
 import {ActivityButton} from "../../components/activitybutton"
 import {SearchBar} from "../../components/searchbar"
@@ -8,8 +8,8 @@ import {UserIcon} from "../../components/icons/usericon"
 export default async function MoviePage({ params }: { params: Promise<{ id: string }> })
 {
     const { id } = await params
-    const movie = await tmdb.getMovie(id)
-    const similar = await tmdb.getSimilar(id)
+    const movie = await clientTmdb.getMovie(id)
+    const similar = await clientTmdb.getSimilar(id)
 
     return (
         <div className="bg-background min-h-screen">

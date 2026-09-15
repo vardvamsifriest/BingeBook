@@ -1,6 +1,6 @@
 import { Logo } from "./components/logo";
 import { Button } from "@repo/ui";
-import { tmdb, imageUrl } from "@/lib/api";
+import { clientTmdb, imageUrl } from "@/lib/api";
 import {ProgressTracker} from "./components/icons/playicon"
 import {RatingIcon} from "./components/icons/ratingicon"
 import {Bookmark} from "./components/icons/bookmark"
@@ -8,8 +8,8 @@ import {Notebook} from "./components/icons/notebook"
 import Link from "next/link";
 
 export default async function Landing() {
-  const movies = await tmdb.getTrendingMovies();
-  const tvShows = await tmdb.getTrendingTV();
+  const movies = await clientTmdb.getTrendingMovies();
+  const tvShows = await clientTmdb.getTrendingTV();
 
   return (
     <div className="bg-background min-h-screen">

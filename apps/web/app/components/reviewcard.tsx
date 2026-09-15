@@ -9,7 +9,7 @@ interface ReviewCardProps {
 import {useState} from "react"
 import {StarIcon} from "../components/icons/staricon"
 import {Button} from "@repo/ui"
-import {saveReview,tmdb} from "@/lib/api"
+import {saveReview,clientTmdb} from "@/lib/api"
 import {CrossIcon} from "../components/icons/crossicon"
 import {useToast} from "../components/toastprovider"
 export function ReviewCard(props:ReviewCardProps)

@@ -1,4 +1,4 @@
-import {tmdb,imageUrl} from "@/lib/api"
+import {clientTmdb,imageUrl} from "@/lib/api"
 import Link from "next/link"
 import {ActivityButton} from "../../components/activitybutton"
 import {Button} from "@repo/ui"
@@ -11,8 +11,8 @@ export  default async function TvPage({ params }: { params: Promise<{ id: string
 {
   
     const { id } = await params
-    const tv = await tmdb.getTv(id)
-    const similar = await tmdb.getTVSimilar(id)
+    const tv = await clientTmdb.getTv(id)
+    const similar = await clientTmdb.getTVSimilar(id)
   
     
     return (

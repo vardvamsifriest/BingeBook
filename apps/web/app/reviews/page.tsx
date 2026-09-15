@@ -1,6 +1,6 @@
 "use client"
 import {useEffect , useState} from "react"
-import {tmdb , GetWatched , deleteReview} from "@/lib/api"
+import {clientTmdb , GetWatched , deleteReview} from "@/lib/api"
 import {SearchBar} from "../components/searchbar"
 import {UserIcon} from "../components/icons/usericon"
 import {DeleteIcon} from "../components/icons/deleteicon"
@@ -22,8 +22,8 @@ export default function ReviewPage()
                   .map(async (item: any) => {
                     const details =
                       item.mediaType === "movie"
-                        ? await tmdb.getMovie(item.tmdbId.toString())
-                        : await tmdb.getTv(item.tmdbId.toString());
+                        ? await clientTmdb.getMovie(item.tmdbId.toString())
+                        : await clientTmdb.getTv(item.tmdbId.toString());
               
                     return {
                       ...item,
