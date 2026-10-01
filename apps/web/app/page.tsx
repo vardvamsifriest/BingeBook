@@ -8,9 +8,8 @@ import {Notebook} from "./components/icons/notebook"
 import Link from "next/link";
 
 export default async function Landing() {
-  const movies = await fetch(`${process.env.BACKEND_URL}/tmdb/trending/movie`).then(res => res.json());
-
-const tvShows = await fetch(`${process.env.BACKEND_URL}/tmdb/trending/tv`).then(res => res.json());
+  const movies = await clientTmdb.getTrendingMovies();
+  const tvShows = await clientTmdb.getTrendingTV();
 
   return (
     <div className="bg-background min-h-screen">

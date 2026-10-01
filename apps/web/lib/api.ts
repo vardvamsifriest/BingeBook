@@ -1,8 +1,9 @@
 import {useToast} from "../app/components/toastprovider"
-
-
-const BASE_URL = "/api";
-const API_URL = "/api";
+const BASE_URL = "http://localhost:3002";
+const SERVER_URL  = "http://localhost:3001";
+  typeof window === "undefined"
+    ? "http://backend:3001"
+    : "http://localhost:3002";
 const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
 
 
@@ -15,32 +16,32 @@ function authHeaders() {
 }
 export const clientTmdb = {
   getMovie: async (id: string) => {
-    const res = await fetch(`${API_URL}/tmdb/movie/${id}`);
+    const res = await fetch(`${SERVER_URL}/tmdb/movie/${id}`);
     return res.json();
   },
 
   getSimilar: async (id: string) => {
-    const res = await fetch(`${API_URL}/tmdb/movie/${id}/similar`);
+    const res = await fetch(`${SERVER_URL}/tmdb/movie/${id}/similar`);
     return res.json();
   },
   getTv:async (id: string)=> {
-    const res = await fetch(`${API_URL}/tmdb/tv/${id}`)
+    const res = await fetch(`${SERVER_URL}/tmdb/tv/${id}`)
     return res.json();
   },
   getTVSimilar:async (id:string)=> {
-    const res = await fetch(`${API_URL}/tmdb/tv/${id}/similar`)
+    const res = await fetch(`${SERVER_URL}/tmdb/tv/${id}/similar`)
     return res.json();
   },
   getTrendingMovies:async()=> {
-    const res = await fetch(`${API_URL}/tmdb/trending/movie`)
+    const res = await fetch(`${SERVER_URL}/tmdb/trending/movie`)
     return res.json()
   },
   getTrendingTV:async() => {
-    const res = await fetch(`${API_URL}/tmdb/trending/tv`)
+    const res = await fetch(`${SERVER_URL}/tmdb/trending/tv`)
     return res.json()
   },
 getPerson: async (id: string) => {
-  const url = `${API_URL}/tmdb/person/${id}`;
+  const url = `${SERVER_URL}/tmdb/person/${id}`;
   const res = await fetch(url, {
   });
 
@@ -53,14 +54,14 @@ getPerson: async (id: string) => {
   return res.json();
 },
   getPersonCredits: async (id: string) => {
-    const res = await fetch(`${API_URL}/tmdb/person/${id}/credits`);
+    const res = await fetch(`${SERVER_URL}/tmdb/person/${id}/credits`);
     return res.json();
   }
 };
 
 export async function searchMedia(query: string) {
   const res = await fetch(
-    `${API_URL}/tmdb/search?q=${encodeURIComponent(query)}`
+    `${SERVER_URL}/tmdb/search?q=${encodeURIComponent(query)}`
   );
   return res.json();
 }
@@ -83,7 +84,7 @@ export async function addActivity(data:{
   status:string;
 }) 
 {
-  const res = await fetch(`${BASE_URL}/activity`,{
+  const res = await fetch(`${SERVER_URL}/activity`,{
     method:"POST",
     headers:authHeaders(),
     body:JSON.stringify(data),
@@ -94,7 +95,7 @@ export async function GetWatchlist()
 {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${BASE_URL}/activity/watchlist`, {
+  const res = await fetch(`${SERVER_URL}/activity/watchlist`, {
     headers: authHeaders(),
   });
 
@@ -105,7 +106,7 @@ export async function GetWatched()
 {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${BASE_URL}/activity/watched`, {
+  const res = await fetch(`${SERVER_URL}/activity/watched`, {
     headers: authHeaders(),
   });
   return res.json()
@@ -114,7 +115,7 @@ export async function GetWatching()
 {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${BASE_URL}/activity/watching`, {
+  const res = await fetch(`${SERVER_URL}/activity/watching`, {
     headers: authHeaders(),
   });
   return res.json()
@@ -123,13 +124,13 @@ export async function GetDropped()
 {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${BASE_URL}/activity/dropped`, {
+  const res = await fetch(`${SERVER_URL}/activity/dropped`, {
     headers: authHeaders(),
   });
   return res.json()
 }
 export async function removeActivity(id: string) {
-  const res = await fetch(`${BASE_URL}/activity/${id}`, {
+  const res = await fetch(`${SERVER_URL}/activity/${id}`, {
     method: "DELETE",
     headers: authHeaders(),
   });
@@ -141,7 +142,7 @@ export async function GetActivity(
   mediaType: "movie" | "tv"
 ) {
   const res = await fetch(
-    `${BASE_URL}/activity/${mediaType}/${id}`,
+    `${SERVER_URL}/activity/${mediaType}/${id}`,
   {
     headers: authHeaders(),
   });
@@ -149,7 +150,7 @@ export async function GetActivity(
   return res.json();
 }
 export async function deleteReview(id: string) {
-  const res = await fetch(`${BASE_URL}/activity/review/${id}`, {
+  const res = await fetch(`${SERVER_URL}/activity/review/${id}`, {
     method: "DELETE",
     headers: authHeaders(),
   });
@@ -163,7 +164,7 @@ export async function updateStatus(
   status: "watched" | "watching" | "watchlist" | "dropped"
 ) {
   console.log("Sending update:", { id, mediaType, status });
-  const res = await fetch(`${BASE_URL}/activity/status`, {
+  const res = await fetch(`${SERVER_URL}/activity/status`, {
     method: "PUT",
     headers: authHeaders(),
     body: JSON.stringify({
@@ -180,7 +181,7 @@ export async function signup(data: {
   email: string;
   username: string;
 }) {
-  const res = await fetch(`${BASE_URL}/auth/signup`, {
+  const res = await fetch(`${SERVER_URL}/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -201,7 +202,7 @@ export async function signin(data: {
   password: string;
   email: string;
 }) {
-  const res = await fetch(`${BASE_URL}/auth/signin`, {
+  const res = await fetch(`${SERVER_URL}/auth/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -226,7 +227,7 @@ export async function saveReview(data: {
   review: string;
 }) {
   const res = await fetch(
-    `${BASE_URL}/activity/review`,
+    `${SERVER_URL}/activity/review`,
     {
       method: "PUT",
       headers: authHeaders(),
@@ -239,7 +240,7 @@ export async function saveReview(data: {
 export async function getProfile() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`${BASE_URL}/auth/profile`, {
+  const res = await fetch(`${SERVER_URL}/auth/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
