@@ -1,10 +1,8 @@
 import {useToast} from "../app/components/toastprovider"
-const BASE_URL = "http://localhost:3002";
-const SERVER_URL  = "http://backend:3001";
-const API_URL =
-  typeof window === "undefined"
-    ? "http://backend:3001"
-    : "http://localhost:3002";
+
+
+const BASE_URL = "/api";
+const API_URL = "/api";
 const TMDB_IMAGE = "https://image.tmdb.org/t/p/w500";
 
 
@@ -22,7 +20,7 @@ export const clientTmdb = {
   },
 
   getSimilar: async (id: string) => {
-    const res = await fetch(`${SERVER_URL}/tmdb/movie/${id}/similar`);
+    const res = await fetch(`${API_URL}/tmdb/movie/${id}/similar`);
     return res.json();
   },
   getTv:async (id: string)=> {
@@ -30,19 +28,19 @@ export const clientTmdb = {
     return res.json();
   },
   getTVSimilar:async (id:string)=> {
-    const res = await fetch(`${SERVER_URL}/tmdb/tv/${id}/similar`)
+    const res = await fetch(`${API_URL}/tmdb/tv/${id}/similar`)
     return res.json();
   },
   getTrendingMovies:async()=> {
-    const res = await fetch(`${SERVER_URL}/tmdb/trending/movie`)
+    const res = await fetch(`${API_URL}/tmdb/trending/movie`)
     return res.json()
   },
   getTrendingTV:async() => {
-    const res = await fetch(`${SERVER_URL}/tmdb/trending/tv`)
+    const res = await fetch(`${API_URL}/tmdb/trending/tv`)
     return res.json()
   },
 getPerson: async (id: string) => {
-  const url = `${SERVER_URL}/tmdb/person/${id}`;
+  const url = `${API_URL}/tmdb/person/${id}`;
   const res = await fetch(url, {
   });
 
@@ -55,14 +53,14 @@ getPerson: async (id: string) => {
   return res.json();
 },
   getPersonCredits: async (id: string) => {
-    const res = await fetch(`${SERVER_URL}/tmdb/person/${id}/credits`);
+    const res = await fetch(`${API_URL}/tmdb/person/${id}/credits`);
     return res.json();
   }
 };
 
 export async function searchMedia(query: string) {
   const res = await fetch(
-    `${SERVER_URL}/tmdb/search?q=${encodeURIComponent(query)}`
+    `${API_URL}/tmdb/search?q=${encodeURIComponent(query)}`
   );
   return res.json();
 }
