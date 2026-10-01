@@ -3,7 +3,8 @@
     "services": {
       "backend": {
         "root": "apps/backend",
-        "framework": "express"
+        "framework": "express",
+        "buildCommand": "cd ../.. && pnpm turbo build --filter=backend..."
       },
       "web": {
         "root": "apps/web",
