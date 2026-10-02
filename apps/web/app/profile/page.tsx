@@ -103,9 +103,9 @@ export default function ProfilePage() {
          
         </div>
         <div className="pt-8">
-        <Button variant="primary" text="Log out" size="md" starticon={<ExitIcon />} onClick={()=>{
-          router.push("/")
-        }}/>
+        <Button variant="primary" text="Log out" size="md" starticon={<ExitIcon />} onClick={()=>
+          {localStorage.removeItem("token")
+          router.push("/signin")}}/>
       </div>
         
         <div className="grid grid-cols-5 gap-4 mt-10">
